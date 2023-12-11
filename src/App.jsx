@@ -1,10 +1,11 @@
 import './App.css'
+import {ListArticles} from "./Components/ListArticles.jsx";
 
 function App() {
 
   return (
     <>
-      <h1>Hello</h1>
+      <ListArticles />
     </>
   )
 }
