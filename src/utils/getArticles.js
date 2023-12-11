@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getArticles = async (query) => {
   try {
-    let url = "http://ec2-35-179-90-244.eu-west-2.compute.amazonaws.com/api/articles";
+    let url = "https://nc-news-api-62ip.onrender.com/api/articles";
 
     if (query) url += "?" + query;
 
