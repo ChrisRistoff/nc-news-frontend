@@ -2,10 +2,13 @@ import {getArticleById} from "../utils/getArticleById.js";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Button, Card, ListGroup} from "react-bootstrap";
+import {Comments} from "./Comments.jsx";
+import {getComments} from "../utils/getComments.js";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [comments, setComments] = useState(null);
   let { id } = useParams();
 
   useEffect(() => {
@@ -27,6 +30,15 @@ export const Article = () => {
     fetchArticle();
   }, [id]);
 
+  const loadComments = async () => {
+    try {
+      const comments = await getComments(id);
+      setComments(comments);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <Card className="mb-3" style={{ width: '100%' }}>
@@ -43,10 +55,13 @@ export const Article = () => {
           <ListGroup.Item>Votes: {article.votes}</ListGroup.Item>
         </ListGroup>
         <Card.Body>
-          <Button variant="primary">Comments ({article.comment_count})</Button>
+          <Button variant="primary" onClick={loadComments}>
+            Comments ({article.comment_count})
+          </Button>
         </Card.Body>
       </Card>
 
+      {comments && <Comments comments={comments} /> }
     </div>
   )
 }
