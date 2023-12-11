@@ -1,11 +1,13 @@
 import './App.css'
 import {ListArticles} from "./Components/ListArticles.jsx";
+import {Comments} from "./Components/Comments.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
   return (
     <>
-      <ListArticles />
+      <Comments articleId={1}/>
     </>
   )
 }
