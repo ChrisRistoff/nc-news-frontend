@@ -1,24 +1,28 @@
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {Button, Card, ListGroup} from "react-bootstrap";
+import {getArticles} from "../utils/getArticles.js";
 
 export const ListArticles = () => {
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getArticles = async () => {
+    const fetchArticles = async () => {
       try {
-        const reqLink = "http://ec2-35-179-90-244.eu-west-2.compute.amazonaws.com/api/articles";
-        const response = await axios.get(reqLink);
-        const data = response.data;
-        setArticles(data.articles);
+        const articles = await getArticles();
+        setArticles(articles);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
-
     }
 
-    getArticles();
+    if (isLoading) {
+      <h1>Loading...</h1>
+    }
+
+    fetchArticles();
   }, []);
 
   return (
@@ -35,7 +39,7 @@ export const ListArticles = () => {
             <ListGroup className="list-group-flush">
               <ListGroup.Item>Author: {article.author}</ListGroup.Item>
               <ListGroup.Item>Topic: {article.topic}</ListGroup.Item>
-              <ListGroup.Item>Created: {article.created_at}</ListGroup.Item>
+              <ListGroup.Item>{article.created_at}</ListGroup.Item>
               <ListGroup.Item>Votes: {article.votes}</ListGroup.Item>
               <ListGroup.Item>Comments: {article.comment_count}</ListGroup.Item>
             </ListGroup>

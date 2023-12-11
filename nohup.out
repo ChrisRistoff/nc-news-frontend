@@ -77,3 +77,127 @@ com.intellij.diagnostic.PluginException: Migrate com.maddyhome.idea.vim.handler.
 2023-12-11 10:54:27,912 [  11349]   WARN - #c.i.o.a.i.ActionUpdater - 559 ms to grab EDT for ChangePreviewLayoutAction$PreviewOnly#Update@TabsMoreToolbar (org.intellij.plugins.markdown.ui.actions.ChangePreviewLayoutAction$PreviewOnly)
 2023-12-11 10:54:27,911 [  11348]   WARN - #c.i.o.a.i.ActionUpdater - 559 ms to grab EDT for ChangePreviewLayoutAction$EditorOnly#Update@TabsMoreToolbar (org.intellij.plugins.markdown.ui.actions.ChangePreviewLayoutAction$EditorOnly)
 2023-12-11 10:54:34,366 [  17803]   WARN - #c.i.o.a.ExperimentalFeatureImpl - Feature 'js.balance.tasks.for.inspection.pass' is disabled in Release. Set 'percentOfUsers' to 100% to enable in Release.
+CompileCommand: exclude com/intellij/openapi/vfs/impl/FilePartNodeRoot.trieDescend bool exclude = true
+2023-12-11 12:12:41,462 [     90]   WARN - #c.i.i.p.PluginManager - <resource-bundle>com.jetbrains.webstorm.WebstormBundle</resource-bundle> tag is found in an xml descriptor included into the platform part of the IDE but the platform part uses predefined bundles (e.g. ActionsBundle for actions) anyway; this tag must be replaced by a corresponding attribute in some inner tags (e.g. by 'resource-bundle' attribute in 'actions' tag)
+2023-12-11 12:12:41,798 [    426]   WARN - #c.i.s.ComponentManagerImpl - `preload=true` must be used only for core services (service=com.jetbrains.rdserver.statistics.BackendStatisticsManager, plugin=com.jetbrains.codeWithMe)
+2023-12-11 12:12:42,200 [    828]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.psi.search.FilenameIndex initializer requests com.intellij.ide.plugins.PluginUtil instance
+2023-12-11 12:12:42,501 [   1129]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.lang.javascript.psi.jsdoc.impl.JSDocCustomTags initializer requests com.intellij.lang.javascript.JSDisposable instance
+2023-12-11 12:12:43,543 [   2171]   WARN - #c.i.s.ComponentManagerImpl - com.maddyhome.idea.vim.api.Options initializer requests com.maddyhome.idea.vim.api.SystemInfoService instance
+2023-12-11 12:12:43,576 [   2204]   WARN - #c.i.s.ComponentManagerImpl - org.zmlx.hg4idea.provider.HgChangeProvider initializer requests com.intellij.openapi.vcs.FileStatusFactory instance
+2023-12-11 12:12:43,631 [   2259]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.psi.LanguageSubstitutors initializer requests com.intellij.psi.LanguageSubstitutors instance
+2023-12-11 12:12:43,962 [   2590]   WARN - #c.i.s.ComponentManagerImpl - com.github.copilot.platform.state.ToolWindowRegistrationSettings initializer requests com.github.copilot.platform.state.ToolWindowRegistrationSettings instance
+2023-12-11 12:12:44,220 [   2848]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable initializer requests com.intellij.util.LocaleSensitiveApplicationCacheService instance
+2023-12-11 12:12:44,468 [   3096]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.lang.javascript.JSMinifiedFileUtil initializer requests com.intellij.util.gist.GistManager instance
+2023-12-11 12:12:44,886 [   3514]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.ui.jcef.JBCefApp$Holder initializer requests com.intellij.ui.jcef.JBCefAppCache instance
+
+(java:958855): Gtk-WARNING **: 12:12:45.220: gtk_disable_setlocale() must be called before gtk_init()
+2023-12-11 12:12:46,059 [   4687]   WARN - #c.i.i.s.i.StartupManagerImpl - Migrate com.maddyhome.idea.vim.handler.EditorHandlersChainLogger to ProjectActivity [Plugin: IdeaVIM]
+com.intellij.diagnostic.PluginException: Migrate com.maddyhome.idea.vim.handler.EditorHandlersChainLogger to ProjectActivity [Plugin: IdeaVIM]
+	at com.intellij.ide.startup.impl.StartupManagerImpl.runPostStartupActivities(StartupManagerImpl.kt:277)
+	at com.intellij.ide.startup.impl.StartupManagerImpl.access$runPostStartupActivities(StartupManagerImpl.kt:69)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invokeSuspend(StartupManagerImpl.kt:192)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:78)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:167)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3.invokeSuspend(StartupManagerImpl.kt:191)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:270)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:102)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:46)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+2023-12-11 12:12:46,062 [   4690]   WARN - #c.i.i.s.i.StartupManagerImpl - Migrate com.maddyhome.idea.vim.handler.KeymapChecker to ProjectActivity [Plugin: IdeaVIM]
+com.intellij.diagnostic.PluginException: Migrate com.maddyhome.idea.vim.handler.KeymapChecker to ProjectActivity [Plugin: IdeaVIM]
+	at com.intellij.ide.startup.impl.StartupManagerImpl.runPostStartupActivities(StartupManagerImpl.kt:277)
+	at com.intellij.ide.startup.impl.StartupManagerImpl.access$runPostStartupActivities(StartupManagerImpl.kt:69)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invokeSuspend(StartupManagerImpl.kt:192)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:78)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:167)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3.invokeSuspend(StartupManagerImpl.kt:191)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:270)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:102)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:46)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+2023-12-11 12:12:46,065 [   4693]   WARN - #c.i.i.s.i.StartupManagerImpl - Migrate com.maddyhome.idea.vim.handler.CopilotKeymapCorrector to ProjectActivity [Plugin: IdeaVIM]
+com.intellij.diagnostic.PluginException: Migrate com.maddyhome.idea.vim.handler.CopilotKeymapCorrector to ProjectActivity [Plugin: IdeaVIM]
+	at com.intellij.ide.startup.impl.StartupManagerImpl.runPostStartupActivities(StartupManagerImpl.kt:277)
+	at com.intellij.ide.startup.impl.StartupManagerImpl.access$runPostStartupActivities(StartupManagerImpl.kt:69)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invokeSuspend(StartupManagerImpl.kt:192)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:78)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:167)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3.invokeSuspend(StartupManagerImpl.kt:191)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:270)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:102)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:46)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+2023-12-11 12:12:46,630 [   5258]   WARN - #c.i.i.s.i.StartupManagerImpl - Migrate com.github.copilot.update.CopilotNightlyAgentChannelStartupActivity to ProjectActivity [Plugin: com.github.copilot]
+com.intellij.diagnostic.PluginException: Migrate com.github.copilot.update.CopilotNightlyAgentChannelStartupActivity to ProjectActivity [Plugin: com.github.copilot]
+	at com.intellij.ide.startup.impl.StartupManagerImpl.runPostStartupActivities(StartupManagerImpl.kt:277)
+	at com.intellij.ide.startup.impl.StartupManagerImpl.access$runPostStartupActivities(StartupManagerImpl.kt:69)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invokeSuspend(StartupManagerImpl.kt:192)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:78)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:167)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3.invokeSuspend(StartupManagerImpl.kt:191)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:270)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:102)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:46)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+2023-12-11 12:12:46,634 [   5262]   WARN - #c.i.i.s.i.StartupManagerImpl - Migrate com.github.copilot.chat.session.ChatSessionManagerActivity to ProjectActivity [Plugin: com.github.copilot]
+com.intellij.diagnostic.PluginException: Migrate com.github.copilot.chat.session.ChatSessionManagerActivity to ProjectActivity [Plugin: com.github.copilot]
+	at com.intellij.ide.startup.impl.StartupManagerImpl.runPostStartupActivities(StartupManagerImpl.kt:277)
+	at com.intellij.ide.startup.impl.StartupManagerImpl.access$runPostStartupActivities(StartupManagerImpl.kt:69)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invokeSuspend(StartupManagerImpl.kt:192)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3$2.invoke(StartupManagerImpl.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:78)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:167)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.ide.startup.impl.StartupManagerImpl$runPostStartupActivities$3.invokeSuspend(StartupManagerImpl.kt:191)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:270)
+	at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:102)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:46)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
+2023-12-11 12:12:46,787 [   5415]   WARN - #c.i.i.s.p.i.BundledSharedIndexPostStartupActivity - Skipped 1 pre-built shared indexes: bundled-js-predefined-1d06a55b98c1-56bbcd2c060c-JavaScript-WS-233.11799.229
+2023-12-11 12:12:47,769 [   6397]   WARN - #o.j.p.t.TextMateService - Cannot find referenced file `./language-configuration.json` in bundle `/snap/webstorm/348/plugins/textmate/lib/bundles/mdx`
+2023-12-11 12:12:47,871 [   6499]   WARN - #c.i.o.a.ExperimentalFeatureImpl - Feature 'js.balance.tasks.for.inspection.pass' is disabled in Release. Set 'percentOfUsers' to 100% to enable in Release.
+2023-12-11 12:13:13,094 [  31722]   WARN - #c.i.s.ComponentManagerImpl - com.intellij.tailwind.TailwindElementDescriptorProvider initializer requests com.intellij.psi.css.impl.util.scheme.CssElementDescriptorFactory2 instance
+2023-12-11 12:13:14,184 [  32812]   WARN - #c.i.o.a.e.ActionUtil - Can not find action by id CompileDirty
+2023-12-11 12:17:14,737 [ 273365]   WARN - #c.i.s.ComponentManagerImpl - com.maddyhome.idea.vim.helper.VimStandalonePluginUpdateChecker initializer requests com.maddyhome.idea.vim.helper.VimStandalonePluginUpdateChecker instance
+2023-12-11 12:18:51,496 [ 370124]   WARN - #org.intellij.plugins.markdown.ui.preview.jcef.MarkdownJCEFHtmlPanel - Canceling request for an external page with url: http://localhost:63342/markdownPreview/341717244/markdown-preview-index-116485819.html?_ijt=55k3ta8dug1mp4t2auvsco3ejv.
+Current page url: 
+Target safe url: http://localhost:63342/markdownPreview/341717244/markdown-preview-index-116485819.html?_ijt=mp2vef3qo16vitj076il4bnee6
+2023-12-11 12:19:00,348 [ 378976]   WARN - #c.i.l.j.c.JSInsertHandler - possibleFunctionData wasn't calculated
