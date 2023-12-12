@@ -1,16 +1,19 @@
 import { getArticleById } from "../utils/getArticleById.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import {Button, Card, ListGroup} from "react-bootstrap";
 import { Comments } from "./Comments.jsx";
 import { getComments } from "../utils/getComments.js";
 import { incrementVotes, decrementVotes } from "../utils/handleArticleVotes.js";
+import {CreateNewComment} from "./CreateNewComment.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState(null);
   const [voteError, setVoteError] = useState("");
+  const [expandNewComment, setExpandNewComment] = useState(false);
+
   let { id } = useParams();
 
   useEffect(() => {
@@ -30,7 +33,7 @@ export const Article = () => {
     }
 
     fetchArticle();
-  }, []);
+  }, [comments]);
 
   const loadComments = async () => {
     try {
@@ -77,6 +80,10 @@ export const Article = () => {
     }
   };
 
+  const handleExpand = () => {
+    setExpandNewComment(!expandNewComment);
+  }
+
   return (
     <div>
       <Card className="mb-3" style={{ width: "100%" }}>
@@ -94,13 +101,10 @@ export const Article = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             Votes: {article.votes}
-            <Button
-              variant="success"
-              className="mx-2"
-              onClick={handleIncrementVote}
-            >
+            <Button variant="success" onClick={handleIncrementVote}>
               +
             </Button>
+
             <Button variant="danger" onClick={handleDecrementVote}>
               -
             </Button>
@@ -111,6 +115,8 @@ export const Article = () => {
           <Button variant="primary" onClick={loadComments}>
             Comments ({article.comment_count})
           </Button>
+          {localStorage.getItem("username") && <Button variant="primary" onClick={handleExpand}>Add Comment</Button> }
+          {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComment={setComments}/>}
         </Card.Body>
       </Card>
 

@@ -23,6 +23,7 @@ export const Register = () => {
       }
       await registerUser(username, name, avatarUrl, password);
 
+      localStorage.setItem("username", username);
       setIsLoggedIn(true);
       return navigate("/")
     } catch (e) {
