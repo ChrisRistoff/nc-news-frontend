@@ -26,9 +26,8 @@ export const CreateNewComment = ({ articleId, comments, setComment }) => {
       setSuccess(true);
 
     } catch (error) {
-      setSuccess(false)
       setLoading(false)
-      console.log(error);
+      setSuccess(false)
       setCommentError(error.response.data.msg);
     }
   };

@@ -13,7 +13,6 @@ export const ListArticles = () => {
         const articles = await getArticles();
         setArticles(articles);
       } catch (error) {
-        console.log(error);
       } finally {
         setIsLoading(false);
       }

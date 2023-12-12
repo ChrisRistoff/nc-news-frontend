@@ -22,7 +22,6 @@ export const Article = () => {
         const article = await getArticleById(id);
         setArticle(article);
       } catch (error) {
-        console.log(error);
       } finally {
         setIsLoading(false);
       }
@@ -120,7 +119,7 @@ export const Article = () => {
         </Card.Body>
       </Card>
 
-      {comments && <Comments comments={comments} />}
+      {comments && <Comments comments={comments} setComments={setComments}/>}
     </div>
   );
 };
