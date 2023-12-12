@@ -25,7 +25,7 @@ export const Register = () => {
 
       localStorage.setItem("username", username);
       setIsLoggedIn(true);
-      return navigate("/")
+      return navigate(-1);
     } catch (e) {
       const error = e.response ? e.response.data.msg : e.message;
       setLoginError(error);

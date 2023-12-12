@@ -12,7 +12,7 @@ export const Header = () => {
     localStorage.removeItem("username")
     setIsLoggedIn(false)
 
-    return navigate("/")
+    navigate(0)
   }
 
   return (
@@ -30,8 +30,8 @@ export const Header = () => {
               <Button variant="outline-success" onClick={handleSignOut}>Sign Out</Button>
             ) : (
               <>
-                <Link to={"/login"} className="btn btn-outline-primary me-2">Login</Link>
-                <Button variant="outline-secondary" href="/signup" className="ms-2">Sign Up</Button>
+                <Link to={"/login"} className="btn btn-outline-primary me-2 buttons">Login</Link>
+                <Link to="/signup" className="btn btn-outline-secondary me-2 buttons">Sign Up</Link>
               </>
             )}
           </Nav>

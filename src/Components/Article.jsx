@@ -1,6 +1,6 @@
 import { getArticleById } from "../utils/getArticleById.js";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {Button, Card, ListGroup} from "react-bootstrap";
 import { Comments } from "./Comments.jsx";
 import { getComments } from "../utils/getComments.js";
@@ -114,7 +114,17 @@ export const Article = () => {
           <Button variant="outline-dark" onClick={loadComments}>
             Comments ({article.comment_count})
           </Button>
-          {localStorage.getItem("username") && <Button variant="outline-dark buttons" onClick={handleExpand}>Add Comment</Button> }
+
+          {localStorage.getItem("username") ?
+            <Button variant="outline-dark buttons" onClick={handleExpand}>Add Comment</Button> :
+            <div>
+              You have to
+             <Link to="/login" className="btn btn-outline-secondary buttons" >Login</Link>
+              or
+              <Link to="/signup" className="btn btn-outline-secondary buttons" >Register</Link>
+              to submit a comment
+            </div>}
+
           {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComment={setComments}/>}
         </Card.Body>
       </Card>

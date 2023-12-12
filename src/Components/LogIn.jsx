@@ -11,6 +11,7 @@ export const LogIn = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(LoggedInContext);
 
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -24,7 +25,7 @@ export const LogIn = () => {
       localStorage.setItem("username", username);
       setIsLoggedIn(true);
 
-      return navigate("/")
+      return navigate(-1)
     } catch (e) {
       const error = e.response ? e.response.data.msg : e.message;
       setLoginError(error);
