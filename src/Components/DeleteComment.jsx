@@ -17,7 +17,6 @@ export const DeleteComment = ({ comment_id, comments, setComments }) => {
       setComments(filteredComments);
     } catch (error) {
       setLoading(false)
-      console.log(error);
       setCommentError(error.response.data.msg);
     }
   };
