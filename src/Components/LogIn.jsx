@@ -1,0 +1,70 @@
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {useContext, useState} from "react";
+import {loginUser} from "../utils/loginUser.js";
+import {useNavigate} from "react-router-dom";
+import {LoggedInContext} from "../contexts/loggedInContext.jsx";
+
+export const LogIn = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const {isLoggedIn, setIsLoggedIn} = useContext(LoggedInContext);
+
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log("isLoggedIn", isLoggedIn)
+
+      if (isLoggedIn) {
+        throw new Error("You are already logged in")
+      }
+
+      await loginUser(username, password);
+
+      setIsLoggedIn(true);
+
+      return navigate("/")
+    } catch (e) {
+      const error = e.response ? e.response.data.msg : e.message;
+      setLoginError(error);
+    }
+
+  };
+
+  return (
+    <Container className="d-flex justify-content-center" style={{ height: '100' }}>
+      <Row>
+        <Col md={12} className="mx-auto">
+          <Form onSubmit={handleSubmit}>
+            <h3 className="text-center mb-4">Login</h3>
+            <Form.Group controlId="formUsername">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
+
+            {loginError && <p className="text-danger">{loginError}</p>}
+            <Button variant="primary" type="submit" className="w-100">
+              Login
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
+}

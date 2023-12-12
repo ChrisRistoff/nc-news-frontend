@@ -48,13 +48,11 @@ export const ListArticles = () => {
                   <ListGroup.Item>Comments: {article.comment_count}</ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
-                  <Card.Link>
                     <Button>
                       <Link to={`/articles/${article.article_id}`} className="btn btn-primary">
                         Open Article
                       </Link>
                     </Button>
-                  </Card.Link>
                 </Card.Body>
               </Card>
             </Col>
@@ -62,6 +60,5 @@ export const ListArticles = () => {
         })}
       </Row>
     </div>
-
   );
 }
