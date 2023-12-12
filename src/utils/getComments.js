@@ -1,10 +1,10 @@
-import axios from "axios";
+import { api } from "./axiosCrete";
 
 export const getComments = async (articleId) => {
 
   try {
-    let url = `https://nc-news-api-62ip.onrender.com/api/articles/${articleId}/comments`;
-    const comments = await axios.get(url);
+    let url = `/articles/${articleId}/comments`;
+    const comments = await api.get(url);
 
     return comments.data.comments;
   } catch (error) {

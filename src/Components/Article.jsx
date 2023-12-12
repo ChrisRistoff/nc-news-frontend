@@ -4,11 +4,13 @@ import {useParams} from "react-router-dom";
 import {Button, Card, ListGroup} from "react-bootstrap";
 import {Comments} from "./Comments.jsx";
 import {getComments} from "../utils/getComments.js";
+import {incrementVotes, decrementVotes} from "../utils/handleArticleVotes.js";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState(null);
+  const [voteError, setVoteError] = useState("");
   let { id } = useParams();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export const Article = () => {
     }
 
     fetchArticle();
-  }, [id]);
+  }, []);
 
   const loadComments = async () => {
     try {
@@ -38,6 +40,40 @@ export const Article = () => {
       console.log(error);
     }
   }
+
+  const handleIncrementVote = async () => {
+    try {
+      await incrementVotes(article.article_id);
+      const updatedArticle = {
+        ...article,
+        votes: article.votes + 1
+      }
+
+      if (voteError) setVoteError("");
+
+      setArticle(updatedArticle);
+    } catch (error) {
+      console.log(error);
+      setVoteError("Something went wrong, your vote was not counted.");
+    }
+  };
+
+  const handleDecrementVote = async () => {
+    try {
+      await decrementVotes(article.article_id);
+      const updatedArticle = {
+        ...article,
+        votes: article.votes - 1
+      }
+
+      if (voteError) setVoteError("");
+
+      setArticle(updatedArticle);
+    } catch (error) {
+      console.log(error);
+      setVoteError("Something went wrong, your vote was not counted.");
+    }
+  };
 
   return (
     <div>
@@ -52,7 +88,12 @@ export const Article = () => {
           <ListGroup.Item>Author: {article.author}</ListGroup.Item>
           <ListGroup.Item>Topic: {article.topic}</ListGroup.Item>
           <ListGroup.Item>Created: {new Date(article.created_at).toLocaleDateString()}</ListGroup.Item>
-          <ListGroup.Item>Votes: {article.votes}</ListGroup.Item>
+          <ListGroup.Item>
+            Votes: {article.votes}
+            <Button variant="success" className="mx-2" onClick={handleIncrementVote}>+</Button>
+            <Button variant="danger" onClick={handleDecrementVote}>-</Button>
+            {voteError && <p className="error">{voteError}</p>}
+          </ListGroup.Item>
         </ListGroup>
         <Card.Body>
           <Button variant="primary" onClick={loadComments}>

@@ -1,8 +1,8 @@
-import axios from "axios";
+import { api } from "./axiosCrete";
 
 export const getArticleById = async (id) => {
   try {
-    const response = await axios.get(`https://nc-news-api-62ip.onrender.com/api/articles/${id}`);
+    const response = await api.get(`/articles/${id}`);
 
     console.log(response.data.article)
     return response.data.article;

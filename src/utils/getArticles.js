@@ -1,12 +1,12 @@
-import axios from "axios";
+import { api } from "./axiosCrete";
 
 export const getArticles = async (query) => {
   try {
-    let url = "https://nc-news-api-62ip.onrender.com/api/articles";
+    let url = "/articles";
 
     if (query) url += "?" + query;
 
-    const response = await axios.get(url);
+    const response = await api.get(url);
 
     return response.data.articles;
   } catch (e) {
