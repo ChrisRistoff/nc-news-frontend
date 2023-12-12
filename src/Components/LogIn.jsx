@@ -14,7 +14,6 @@ export const LogIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log("isLoggedIn", isLoggedIn)
 
       if (isLoggedIn) {
         throw new Error("You are already logged in")
@@ -22,6 +21,7 @@ export const LogIn = () => {
 
       await loginUser(username, password);
 
+      localStorage.setItem("username", username);
       setIsLoggedIn(true);
 
       return navigate("/")

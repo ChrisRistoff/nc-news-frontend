@@ -1,14 +1,17 @@
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {useContext} from "react";
 import {LoggedInContext} from "../contexts/loggedInContext.jsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export const Header = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(LoggedInContext);
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false)
+
+    return navigate("/")
   }
 
   return (
