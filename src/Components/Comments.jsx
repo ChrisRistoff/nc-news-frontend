@@ -1,6 +1,7 @@
 import {Card, ListGroup} from "react-bootstrap";
+import {DeleteComment} from "./DeleteComment.jsx";
 
-export const Comments = ({comments}) => {
+export const Comments = ({comments, setComments}) => {
 
   return (
     <div className="container">
@@ -21,6 +22,9 @@ export const Comments = ({comments}) => {
                   <ListGroup.Item>{formattedDate}</ListGroup.Item>
                   <ListGroup.Item>Votes: {comment.votes}</ListGroup.Item>
                 </ListGroup>
+                {comment.author === localStorage.getItem("username") &&
+                  <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments} />
+                }
               </Card>
             </div>
           );

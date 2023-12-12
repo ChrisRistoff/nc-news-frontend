@@ -120,7 +120,7 @@ export const Article = () => {
         </Card.Body>
       </Card>
 
-      {comments && <Comments comments={comments} />}
+      {comments && <Comments comments={comments} setComments={setComments}/>}
     </div>
   );
 };
