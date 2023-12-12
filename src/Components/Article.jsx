@@ -10,6 +10,7 @@ export const Article = () => {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState(null);
+  const [voteError, setVoteError] = useState("");
   let { id } = useParams();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const Article = () => {
     }
 
     fetchArticle();
-  }, [id]);
+  }, []);
 
   const loadComments = async () => {
     try {
@@ -42,25 +43,35 @@ export const Article = () => {
 
   const handleIncrementVote = async () => {
     try {
-      const comments = article.comment_count;
-      const updatedArticle = await incrementVotes(article.article_id);
-      updatedArticle.comment_count = comments;
+      await incrementVotes(article.article_id);
+      const updatedArticle = {
+        ...article,
+        votes: article.votes + 1
+      }
+
+      if (voteError) setVoteError("");
 
       setArticle(updatedArticle);
     } catch (error) {
       console.log(error);
+      setVoteError("Something went wrong, your vote was not counted.");
     }
   };
 
   const handleDecrementVote = async () => {
     try {
-      const comments = article.comment_count;
-      const updatedArticle = await decrementVotes(article.article_id);
-      updatedArticle.comment_count = comments;
+      await decrementVotes(article.article_id);
+      const updatedArticle = {
+        ...article,
+        votes: article.votes - 1
+      }
+
+      if (voteError) setVoteError("");
 
       setArticle(updatedArticle);
     } catch (error) {
       console.log(error);
+      setVoteError("Something went wrong, your vote was not counted.");
     }
   };
 
@@ -81,6 +92,7 @@ export const Article = () => {
             Votes: {article.votes}
             <Button variant="success" className="mx-2" onClick={handleIncrementVote}>+</Button>
             <Button variant="danger" onClick={handleDecrementVote}>-</Button>
+            {voteError && <p className="error">{voteError}</p>}
           </ListGroup.Item>
         </ListGroup>
         <Card.Body>
