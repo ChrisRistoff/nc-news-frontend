@@ -3,8 +3,17 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #c1beb4
 }
 
 .error {
   color: red;
+}
+
+.buttons {
+  margin: 10px;
+}
+
+.forms {
+  background-color: #f6f2f2;
 }

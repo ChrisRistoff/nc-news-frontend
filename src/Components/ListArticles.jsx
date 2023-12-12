@@ -47,11 +47,9 @@ export const ListArticles = () => {
                   <ListGroup.Item>Comments: {article.comment_count}</ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
-                    <Button>
-                      <Link to={`/articles/${article.article_id}`} className="btn btn-primary">
+                      <Link to={`/articles/${article.article_id}`} className="btn btn-outline-dark">
                         Open Article
                       </Link>
-                    </Button>
                 </Card.Body>
               </Card>
             </Col>

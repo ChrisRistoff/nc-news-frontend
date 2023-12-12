@@ -9,6 +9,7 @@ export const Header = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username")
     setIsLoggedIn(false)
 
     return navigate("/")

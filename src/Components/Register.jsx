@@ -34,7 +34,7 @@ export const Register = () => {
   };
 
   return (
-    <Container className="d-flex justify-content-center" style={{ height: '100' }}>
+    <Container className="d-flex justify-content-center forms" style={{ height: '100' }}>
       <Row>
         <Col md={12} className="mx-auto">
           <Form onSubmit={handleSubmit}>
@@ -80,7 +80,8 @@ export const Register = () => {
             </Form.Group>
 
             {loginError && <p className="text-danger">{loginError}</p>}
-            <Button variant="primary" type="submit" className="w-100">
+            <p></p>
+            <Button variant="outline-dark" type="submit" className="w-100">
               Register
             </Button>
           </Form>

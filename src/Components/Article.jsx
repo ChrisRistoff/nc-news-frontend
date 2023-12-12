@@ -85,7 +85,7 @@ export const Article = () => {
 
   return (
     <div>
-      <Card className="mb-3" style={{ width: "100%" }}>
+      <Card className="mb-3 article" style={{ width: "100%" }}>
         <Card.Body>
           <Card.Title>
             <h1>{article.title}</h1>
@@ -100,21 +100,21 @@ export const Article = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             Votes: {article.votes}
-            <Button variant="success" onClick={handleIncrementVote}>
+            <Button variant="outline-dark buttons" onClick={handleIncrementVote}>
               +
             </Button>
 
-            <Button variant="danger" onClick={handleDecrementVote}>
+            <Button variant="outline-dark" onClick={handleDecrementVote}>
               -
             </Button>
             {voteError && <p className="error">{voteError}</p>}
           </ListGroup.Item>
         </ListGroup>
         <Card.Body>
-          <Button variant="primary" onClick={loadComments}>
+          <Button variant="outline-dark" onClick={loadComments}>
             Comments ({article.comment_count})
           </Button>
-          {localStorage.getItem("username") && <Button variant="primary" onClick={handleExpand}>Add Comment</Button> }
+          {localStorage.getItem("username") && <Button variant="outline-dark buttons" onClick={handleExpand}>Add Comment</Button> }
           {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComment={setComments}/>}
         </Card.Body>
       </Card>

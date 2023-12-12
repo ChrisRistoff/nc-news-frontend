@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {createNewComment} from "../utils/createNewComment.js";
-import {Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 
 export const CreateNewComment = ({ articleId, comments, setComment }) => {
   const [commentError, setCommentError] = useState("");
@@ -44,10 +44,10 @@ export const CreateNewComment = ({ articleId, comments, setComment }) => {
           onChange={(event) => setBody(event.target.value)}
         />
       </Form.Group>
-      <button className="btn btn-primary">Submit</button>
+      <Button variant="outline-dark buttons" type="submit">Submit</Button>
       {commentError && <p className="text-danger">{commentError}</p>}
       {success && <p className="text-success">Comment successfully posted.</p>}
-      {loading && <p className="text-info">Loading...</p>}
+      {loading && <p className="text-info">Submitting comment...</p>}
   </Form>
   );
 }
