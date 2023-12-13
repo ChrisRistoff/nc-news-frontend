@@ -1,16 +1,18 @@
 import {useEffect, useState} from "react";
-import {Button, Card, Col, ListGroup, Row} from "react-bootstrap";
+import {Card, Col, ListGroup, Row} from "react-bootstrap";
 import {getArticles} from "../utils/getArticles.js";
 import {Link} from "react-router-dom";
 
-export const ListArticles = () => {
+export const ListArticles = ({ query }) => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchArticles = async () => {
+
+    const fetchArticles = async (query) => {
+
       try {
-        const articles = await getArticles();
+        const articles = await getArticles(query);
         setArticles(articles);
       } catch (error) {
       } finally {
@@ -22,7 +24,7 @@ export const ListArticles = () => {
       <h1>Loading...</h1>
     }
 
-    fetchArticles();
+    fetchArticles(query);
   }, []);
 
   return (

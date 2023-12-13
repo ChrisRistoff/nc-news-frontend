@@ -23,7 +23,7 @@ export const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/">Topics</Nav.Link>
+            <Nav.Link href="/topics">Topics</Nav.Link>
           </Nav>
           <Nav>
             {isLoggedIn ? (

@@ -4,6 +4,7 @@ export const getArticles = async (query) => {
   try {
     let url = "/articles";
 
+    console.log(query);
     if (query) url += "?" + query;
 
     const response = await api.get(url);
