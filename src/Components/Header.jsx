@@ -31,7 +31,7 @@ export const Header = () => {
             ) : (
               <>
                 <Link to={"/login"} className="btn btn-outline-primary me-2 buttons">Login</Link>
-                <Link to="/signup" className="btn btn-outline-secondary me-2 buttons">Sign Up</Link>
+                <Link to="/signup" className="btn btn-outline-secondary me-2 buttons">Register</Link>
               </>
             )}
           </Nav>

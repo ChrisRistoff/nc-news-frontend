@@ -22,6 +22,7 @@ export const Article = () => {
         const article = await getArticleById(id);
         setArticle(article);
       } catch (error) {
+        // nothitng yet
       } finally {
         setIsLoading(false);
       }

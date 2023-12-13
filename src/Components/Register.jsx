@@ -30,7 +30,6 @@ export const Register = () => {
       const error = e.response ? e.response.data.msg : e.message;
       setLoginError(error);
     }
-
   };
 
   return (
@@ -62,7 +61,7 @@ export const Register = () => {
             <Form.Group controlId="formAvatarUrl">
               <Form.Label>Avatar URL</Form.Label>
               <Form.Control
-                type="text"
+                type="url"
                 placeholder="Enter name"
                 value={avatarUrl}
                 onChange={(event) => setAvatarUrl(event.target.value)}
