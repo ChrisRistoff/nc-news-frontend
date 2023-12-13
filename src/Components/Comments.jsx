@@ -25,6 +25,7 @@ export const Comments = ({comments, setComments}) => {
                 {comment.author === localStorage.getItem("username") &&
                   <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments} />
                 }
+                {comment.error && <p className="text-danger">{comment.error}</p>}
               </Card>
             </div>
           );
