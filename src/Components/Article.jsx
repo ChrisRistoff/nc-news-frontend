@@ -6,6 +6,7 @@ import { Comments } from "./Comments.jsx";
 import { getComments } from "../utils/getComments.js";
 import { incrementVotes, decrementVotes } from "../utils/handleArticleVotes.js";
 import {CreateNewComment} from "./CreateNewComment.jsx";
+import {NotFoundPage} from "./NotFound.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -86,6 +87,8 @@ export const Article = () => {
 
   return (
     <div>
+      {isLoading ? <h1>Loading...</h1> :
+      article.title ?
       <Card className="mb-3 article" style={{ width: "100%" }}>
         <Card.Body>
           <Card.Title>
@@ -129,7 +132,7 @@ export const Article = () => {
           {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComment={setComments}/>}
         </Card.Body>
       </Card>
-
+        : <NotFoundPage />}
       {comments && <Comments comments={comments} setComments={setComments}/>}
     </div>
   );
