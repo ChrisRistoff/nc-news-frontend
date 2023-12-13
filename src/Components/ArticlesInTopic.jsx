@@ -14,8 +14,8 @@ export const ArticlesInTopic = () => {
   return (
     <div>
     {showUsers ?
-      <Link onClick={handleClick} className={"btn btn-outline-dark buttons"}>Hide Users</Link> :
-      <Link onClick={handleClick} className={"btn btn-outline-dark buttons"}>Show Users</Link>}
+      <Link onClick={handleClick} className={"btn btn-outline-dark buttons"}>Click the button to hide Users active in this topic</Link> :
+      <Link onClick={handleClick} className={"btn btn-outline-dark buttons"}>Click the button to show Users active in this topic</Link>}
     {showUsers && <ActiveUsersInAtopic topic={topic} />}
     <ListArticles query={`topic=${topic}`} />
     </div>

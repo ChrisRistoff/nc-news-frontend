@@ -8,6 +8,7 @@ import {LogIn} from "./Components/LogIn.jsx";
 import {Register} from "./Components/Register.jsx";
 import {Topics} from "./Components/Topics.jsx";
 import {ArticlesInTopic} from "./Components/ArticlesInTopic.jsx";
+import {NotFoundPage} from "./Components/NotFound.jsx";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path={"/articles/:id"} element={<Article />} />
         <Route path={"/topics"} element={<Topics />} />
         <Route path={"/topics/:topic"} element={<ArticlesInTopic />} />
+        <Route path={"*"} element={<NotFoundPage />} />
       </Routes>
     </>
   )
