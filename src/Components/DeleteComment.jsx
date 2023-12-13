@@ -6,21 +6,24 @@ export const DeleteComment = ({ comment_id, comments, setComments }) => {
   const [commentError, setCommentError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [oldComments, setOldComments] = useState([...comments]);
 
   const handleDelete = async () => {
     try {
+      const filteredComments = comments.filter(comment => comment.comment_id !== comment_id);
+      setComments(filteredComments);
       setLoading(true);
       await deleteComment(comment_id);
       setLoading(false);
       setCommentError("");
-      const filteredComments = comments.filter(comment => comment.comment_id !== comment_id);
 
       setShowModal(false)
-      setComments(filteredComments);
     } catch (error) {
+      setComments(oldComments);
+      comments[0].error= "Failed to delete comment";
       setLoading(false)
       setShowModal(false)
-      setCommentError(error.response.data.msg);
+      setCommentError(error.response.data.msg || "Failed to delete comment.");
     }
   };
 

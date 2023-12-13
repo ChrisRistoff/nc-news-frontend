@@ -1,18 +1,23 @@
 import {useEffect, useState} from "react";
-import {Card, Col, ListGroup, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, ListGroup, Row} from "react-bootstrap";
 import {getArticles} from "../utils/getArticles.js";
 import {Link} from "react-router-dom";
 
 export const ListArticles = ({ query }) => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [queryString, setQueryString] = useState(query);
+
+  const [queried, setQueried] = useState(false);
+  const [order, setOrder] = useState("");
+  const [orderBy, setOrderBy] = useState("");
 
   useEffect(() => {
 
-    const fetchArticles = async (query) => {
+    const fetchArticles = async (queryString) => {
 
       try {
-        const articles = await getArticles(query);
+        const articles = await getArticles(queryString);
         setArticles(articles);
       } catch (error) {
       } finally {
@@ -24,12 +29,62 @@ export const ListArticles = ({ query }) => {
       <h1>Loading...</h1>
     }
 
-    fetchArticles(query);
-  }, []);
+    fetchArticles(queryString);
+    setQueryString(query)
+  }, [queried]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setQueryString(queryString + order + orderBy)
+    setQueried(!queried)
+  }
+
+  const handleSelectOrder = (event) => {
+    setOrder(event.target.value)
+  }
+
+  const handleSelectOrderBy = (event) => {
+    setOrderBy(event.target.value)
+  }
 
   return (
     <div>
+      <h3>Sort articles</h3>
+      <Form onSubmit={handleSubmit}>
+        <Form.Select aria-label="Default select" onChange={handleSelectOrder}>
+          <option>Order to sort in</option>
+          <option value="&order=asc">
+            Ascending
+          </option>
+          <option value="&order=desc">
+            Descending
+          </option>
+        </Form.Select>
+
+        <Form.Select aria-label="Default select" onChange={handleSelectOrderBy}>
+          <option>Value to sort by</option>
+          <option value="&sort_by=title">
+            Title
+          </option>
+          <option value="&sort_by=author">
+            Author
+          </option>
+          <option value="&sort_by=created_at">
+            Date Created
+          </option>
+          <option value="&sort_by=votes">
+            Votes
+          </option>
+          <option value="&sort_by=comment_count">
+            Comments Count
+          </option>
+        </Form.Select>
+
+        <Button variant="outline-dark buttons" type="submit">Click To Sort</Button>
+      </Form>
       <h1>Articles</h1>
+
+
       <Row xs={1} md={2} lg={3} className="g-4">
         {articles.map((article, index) => {
           const formattedDate = new Date(article.created_at).toLocaleString();
