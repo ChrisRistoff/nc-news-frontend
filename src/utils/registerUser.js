@@ -11,7 +11,6 @@ export const registerUser = async (username, name, avatarUrl, password) => {
     });
 
     localStorage.setItem("token", user.data.token);
-    return
   } catch (error) {
     console.log(error);
     throw error;

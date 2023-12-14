@@ -12,7 +12,7 @@ export const Comments = ({comments, setComments}) => {
   const [editToggle, setEditToggle] = useState(false);
 
   const handleIncrementVote = async (comment_id) => {
-    let upVotes= [];
+    let upVotes = [];
     let downVotes = [];
     if (localStorage.getItem("CommentUpVotes")) {
       upVotes = JSON.parse(localStorage.getItem("CommentUpVotes"));
@@ -23,12 +23,12 @@ export const Comments = ({comments, setComments}) => {
     }
 
     if (downVotes.includes(comment_id)) {
-      setVoteError({comment_id: comment_id, message:"You have already downvoted this comment."});
+      setVoteError({comment_id: comment_id, message: "You have already downvoted this comment."});
       return;
     }
 
     if (upVotes.includes(comment_id)) {
-      setVoteError({comment_id: comment_id, message:"You have already upvoted this comment."});
+      setVoteError({comment_id: comment_id, message: "You have already upvoted this comment."});
       return;
     }
 
@@ -52,14 +52,14 @@ export const Comments = ({comments, setComments}) => {
       if (voteError) setVoteError("");
     } catch (error) {
       console.log(error);
-      setVoteError({comment_id: comment_id, message:"Something went wrong, your vote was not counted."});
+      setVoteError({comment_id: comment_id, message: "Something went wrong, your vote was not counted."});
     }
   };
 
   const handleDecrementVote = async (comment_id) => {
 
     let downVotes = [];
-    let upVotes= [];
+    let upVotes = [];
     if (localStorage.getItem("CommentDownVotes")) {
       downVotes = JSON.parse(localStorage.getItem("CommentDownVotes"));
     }
@@ -69,12 +69,12 @@ export const Comments = ({comments, setComments}) => {
     }
 
     if (upVotes.includes(comment_id)) {
-      setVoteError({comment_id: comment_id, message:"You have already upvoted this comment."});
+      setVoteError({comment_id: comment_id, message: "You have already upvoted this comment."});
       return;
     }
 
     if (downVotes.includes(comment_id)) {
-      setVoteError({comment_id: comment_id, message:"You have already downvoted this comment."});
+      setVoteError({comment_id: comment_id, message: "You have already downvoted this comment."});
       return;
     }
 
@@ -98,7 +98,7 @@ export const Comments = ({comments, setComments}) => {
       if (voteError) setVoteError("");
     } catch (error) {
       console.log(error);
-      setVoteError({comment_id: comment_id, message:"Something went wrong, your vote was not counted."});
+      setVoteError({comment_id: comment_id, message: "Something went wrong, your vote was not counted."});
     }
   };
 
@@ -117,13 +117,16 @@ export const Comments = ({comments, setComments}) => {
               <Card className="mb-3">
                 <Card.Body>
                   <Card.Title>{comment.author}</Card.Title>
-                    { !editToggle && localStorage.getItem("username") === comment.author ?
-                      <div>
+                  {!editToggle && localStorage.getItem("username") === comment.author ?
+                    <div>
                       <Card.Text>{comment.body}</Card.Text>
-                          <Button className={"buttons"} variant={"outline-dark"} onClick={() => handleEditToggle()}>Edit comment</Button>
-                          <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments}/>
-                      </div>
-                      : editToggle ? <EditCommentBody comment_id={comment.comment_id} comments={comments} setComments={setComments} setToggle={setEditToggle} />
+                      <Button className={"buttons"} variant={"outline-dark"} onClick={() => handleEditToggle()}>Edit
+                        comment</Button>
+                      <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments}/>
+                    </div>
+                    : editToggle ?
+                      <EditCommentBody comment_id={comment.comment_id} comments={comments} setComments={setComments}
+                                       setToggle={setEditToggle}/>
                       : <Card.Text>comment.body</Card.Text>}
                 </Card.Body>
                 <ListGroup className="list-group-flush">
@@ -139,8 +142,8 @@ export const Comments = ({comments, setComments}) => {
                     </Button>
 
                     <Button variant="outline-dark"
-                      onClick={() => handleDecrementVote(comment.comment_id)}
-                      onMouseLeave={() => setVoteError("")}
+                            onClick={() => handleDecrementVote(comment.comment_id)}
+                            onMouseLeave={() => setVoteError("")}
                     >
                       -
                     </Button>

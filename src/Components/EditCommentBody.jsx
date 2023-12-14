@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {editCommentBody} from "../utils/editCommentBody.js";
 
-export const EditCommentBody = ({ comment_id, comments, setComments, setToggle }) => {
+export const EditCommentBody = ({comment_id, comments, setComments, setToggle}) => {
   let index;
   for (let i = 0; i < comments.length; i++) {
     if (comment_id === comments[i].comment_id) {
@@ -13,7 +13,6 @@ export const EditCommentBody = ({ comment_id, comments, setComments, setToggle }
   }
 
   const [body, setBody] = useState(comments[index].body);
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +25,6 @@ export const EditCommentBody = ({ comment_id, comments, setComments, setToggle }
       setComments(commentsCopy);
       setToggle(false);
 
-      // navigate(0);
     } catch (error) {
       console.log(error);
     }

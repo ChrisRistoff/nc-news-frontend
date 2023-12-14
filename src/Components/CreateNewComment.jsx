@@ -2,7 +2,7 @@ import {useState} from "react";
 import {createNewComment} from "../utils/createNewComment.js";
 import {Button, Form} from "react-bootstrap";
 
-export const CreateNewComment = ({ articleId, comments, setComments }) => {
+export const CreateNewComment = ({articleId, comments, setComments}) => {
   const [commentError, setCommentError] = useState("");
   const [body, setBody] = useState("");
   const [success, setSuccess] = useState(false);
@@ -50,6 +50,6 @@ export const CreateNewComment = ({ articleId, comments, setComments }) => {
       {commentError && <p className="text-danger">{commentError}</p>}
       {success && <p className="text-success">Comment successfully posted.</p>}
       {loading && <p className="text-info">Submitting comment...</p>}
-  </Form>
+    </Form>
   );
 }

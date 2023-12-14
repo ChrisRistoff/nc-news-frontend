@@ -1,10 +1,12 @@
-import { api } from "./axiosCrete";
+import {api} from "./axiosCrete";
 
 export const getArticles = async (query) => {
   try {
     let url = "/articles";
 
-    if (query) url += "?" + query;
+    if (query) {
+      url += "?" + query;
+    }
 
     const response = await api.get(url);
 

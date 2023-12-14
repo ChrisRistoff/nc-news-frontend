@@ -3,7 +3,7 @@ import {Button, Modal} from "react-bootstrap";
 import {deleteArticle} from "../utils/deleteArticle.js";
 import {useNavigate} from "react-router-dom";
 
-export const DeleteArticle = ({ article_id }) => {
+export const DeleteArticle = ({article_id}) => {
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ export const DeleteArticle = ({ article_id }) => {
       setError("There was an error trying to delete your article, please try again.");
     }
 
-      setShowModal(false)
-    }
+    setShowModal(false)
+  }
 
   const handleModal = () => {
     setShowModal(!showModal);

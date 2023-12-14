@@ -7,5 +7,5 @@ export const deleteArticle = async (id) => {
     }
   });
 
-  return
+
 }

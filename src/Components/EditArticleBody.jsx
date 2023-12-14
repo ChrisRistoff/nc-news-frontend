@@ -3,9 +3,8 @@ import {useState} from "react";
 import {editArticleBody} from "../utils/editArticleBody.js";
 import {useNavigate} from "react-router-dom";
 
-export const EditArticleBody = ({ article, setArticle, setToggle }) => {
+export const EditArticleBody = ({article, setArticle, setToggle}) => {
   const [body, setBody] = useState(article.body);
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,7 +14,6 @@ export const EditArticleBody = ({ article, setArticle, setToggle }) => {
       setArticle(updatedArticle.data.article);
 
       setToggle(false);
-      // navigate(0);
     } catch (error) {
       console.log(error);
     }

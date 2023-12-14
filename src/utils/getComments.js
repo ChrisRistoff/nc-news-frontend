@@ -1,4 +1,4 @@
-import { api } from "./axiosCrete";
+import {api} from "./axiosCrete";
 
 export const getComments = async (articleId) => {
 

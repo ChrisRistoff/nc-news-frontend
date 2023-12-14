@@ -8,7 +8,6 @@ export const loginUser = async (username, password) => {
     });
 
     localStorage.setItem("token", user.data.token);
-    return
   } catch (error) {
     console.log(error);
     throw error;

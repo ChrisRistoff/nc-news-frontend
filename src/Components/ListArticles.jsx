@@ -4,7 +4,7 @@ import {getArticles} from "../utils/getArticles.js";
 import {Link} from "react-router-dom";
 import {NotFoundPage} from "./NotFound.jsx";
 
-export const ListArticles = ({ query }) => {
+export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [queryString, setQueryString] = useState(query);
@@ -45,12 +45,12 @@ export const ListArticles = ({ query }) => {
   }
 
   return (
-      isLoading ? (
+    isLoading ? (
         <h1>Loading...</h1>
-        ) :
-          articles.length === 0 ? (
-            <NotFoundPage />
-            ) : (
+      ) :
+      articles.length === 0 ? (
+        <NotFoundPage/>
+      ) : (
         <div>
           <h3>Sort articles</h3>
           <Form onSubmit={handleSubmit}>
@@ -117,6 +117,6 @@ export const ListArticles = ({ query }) => {
             })}
           </Row>
         </div>
-          )
+      )
   );
 }

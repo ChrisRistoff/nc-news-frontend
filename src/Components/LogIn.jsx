@@ -34,7 +34,7 @@ export const LogIn = () => {
   };
 
   return (
-    <Container className="d-flex justify-content-center forms" style={{ height: '100' }}>
+    <Container className="d-flex justify-content-center forms" style={{height: '100'}}>
       <Row>
         <Col md={12} className="mx-auto">
           <Form onSubmit={handleSubmit}>

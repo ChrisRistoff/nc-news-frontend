@@ -1,5 +1,5 @@
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import {Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();

@@ -35,39 +35,39 @@ export const CreateArticle = () => {
   }
 
   return (
-      <Form style={{width: '60%', margin: '0 auto'}} onSubmit={handleSubmit}>
-        <Form.Group controlId="title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter article title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-          />
-        </Form.Group>
+    <Form style={{width: '60%', margin: '0 auto'}} onSubmit={handleSubmit}>
+      <Form.Group controlId="title">
+        <Form.Label>Title</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter article title"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
+      </Form.Group>
 
-        <Form.Group controlId="url">
-          <Form.Label>Image</Form.Label>
-          <Form.Control
-            type="url"
-            placeholder="Enter article image"
-            value={articleImg}
-            onChange={(event) => setArticleImg(event.target.value)}
-          />
-        </Form.Group>
+      <Form.Group controlId="url">
+        <Form.Label>Image</Form.Label>
+        <Form.Control
+          type="url"
+          placeholder="Enter article image"
+          value={articleImg}
+          onChange={(event) => setArticleImg(event.target.value)}
+        />
+      </Form.Group>
 
-        <Form.Group controlId="body">
-          <Form.Label>Content</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={4}
-            placeholder="Enter article content"
-            value={body}
-            onChange={(event) => setBody(event.target.value)}
-          />
-        </Form.Group>
-        <Button variant="outline-dark buttons" type="submit">Submit</Button>
-        {articleError && <p className="text-danger">{articleError}</p>}
-      </Form>
+      <Form.Group controlId="body">
+        <Form.Label>Content</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={4}
+          placeholder="Enter article content"
+          value={body}
+          onChange={(event) => setBody(event.target.value)}
+        />
+      </Form.Group>
+      <Button variant="outline-dark buttons" type="submit">Submit</Button>
+      {articleError && <p className="text-danger">{articleError}</p>}
+    </Form>
   )
 }

@@ -15,16 +15,16 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header/>
       <Routes>
-        <Route path={"/login"} element={<LogIn />} />
-        <Route path={"/signup"} element={<Register />} />
-        <Route path={"/"} element={<Topics />} />
-        <Route path={"/articles/:id"} element={<Article />} />
-        <Route path={"/articles"} element={<ListArticles />} />
-        <Route path={"/topics/:topic"} element={<ArticlesInTopic />} />
-        <Route path={"/:topic/articles/new"} element={<CreateArticle />} />
-        <Route path={"*"} element={<NotFoundPage />} />
+        <Route path={"/login"} element={<LogIn/>}/>
+        <Route path={"/signup"} element={<Register/>}/>
+        <Route path={"/"} element={<Topics/>}/>
+        <Route path={"/articles/:id"} element={<Article/>}/>
+        <Route path={"/articles"} element={<ListArticles/>}/>
+        <Route path={"/topics/:topic"} element={<ArticlesInTopic/>}/>
+        <Route path={"/:topic/articles/new"} element={<CreateArticle/>}/>
+        <Route path={"*"} element={<NotFoundPage/>}/>
       </Routes>
     </>
   )
