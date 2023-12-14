@@ -35,7 +35,7 @@ export const Article = () => {
     }
 
     fetchArticle();
-  }, [comments]);
+  }, [article]);
 
   const loadComments = async () => {
     try {
@@ -185,7 +185,7 @@ export const Article = () => {
               To submit a comment
             </div>}
 
-          {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComment={setComments}/>}
+          {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComments={setComments} article={article} setArticle={setArticle}/>}
         </Card.Body>
       </Card>
         : <NotFoundPage />}

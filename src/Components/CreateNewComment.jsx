@@ -2,7 +2,7 @@ import {useState} from "react";
 import {createNewComment} from "../utils/createNewComment.js";
 import {Button, Form} from "react-bootstrap";
 
-export const CreateNewComment = ({ articleId, comments, setComment }) => {
+export const CreateNewComment = ({ articleId, comments, setComments }) => {
   const [commentError, setCommentError] = useState("");
   const [body, setBody] = useState("");
   const [success, setSuccess] = useState(false);
@@ -11,15 +11,17 @@ export const CreateNewComment = ({ articleId, comments, setComment }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log(comments)
+
     try {
       setLoading(true)
-      const comment = await createNewComment(articleId, body);
+      const newComment = await createNewComment(articleId, body);
       setCommentError("");
 
       setBody("")
 
       if (comments) {
-        setComment([comment.data.comment, ...comments])
+        setComments([newComment.data.comment, ...comments])
       }
 
       setLoading(false)

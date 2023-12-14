@@ -40,7 +40,7 @@ export const LogIn = () => {
           <Form onSubmit={handleSubmit}>
             <h3 className="text-center mb-4">Login</h3>
             <Form.Group controlId="formUsername">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter username"
