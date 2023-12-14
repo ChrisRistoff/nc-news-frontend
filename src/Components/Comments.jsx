@@ -1,7 +1,102 @@
-import {Card, ListGroup} from "react-bootstrap";
+import {Button, Card, ListGroup} from "react-bootstrap";
 import {DeleteComment} from "./DeleteComment.jsx";
+import {useState} from "react";
+import {commentDownVote, commentUpVote} from "../utils/handleCommentVotes.js";
 
 export const Comments = ({comments, setComments}) => {
+
+  const [voteError, setVoteError] = useState(null);
+
+  const handleIncrementVote = async (comment_id) => {
+    let upVotes= [];
+    let downVotes = [];
+    if (localStorage.getItem("CommentUpVotes")) {
+      upVotes = JSON.parse(localStorage.getItem("CommentUpVotes"));
+    }
+
+    if (localStorage.getItem("CommentDownVotes")) {
+      downVotes = JSON.parse(localStorage.getItem("CommentDownVotes"));
+    }
+
+    if (downVotes.includes(comment_id)) {
+      setVoteError({comment_id: comment_id, message:"You have already downvoted this comment."});
+      return;
+    }
+
+    if (upVotes.includes(comment_id)) {
+      setVoteError({comment_id: comment_id, message:"You have already upvoted this comment."});
+      return;
+    }
+
+    localStorage.setItem("CommentUpVotes", JSON.stringify([...upVotes, comment_id]));
+
+    const updatedComments = comments.map((comment) => {
+      if (comment.comment_id === comment_id) {
+        return {
+          ...comment,
+          votes: comment.votes + 1,
+        };
+      }
+      return comment;
+    });
+
+    setComments(updatedComments);
+
+    try {
+      await commentUpVote(comment_id);
+
+      if (voteError) setVoteError("");
+    } catch (error) {
+      console.log(error);
+      setVoteError({comment_id: comment_id, message:"Something went wrong, your vote was not counted."});
+    }
+  };
+
+  const handleDecrementVote = async (comment_id) => {
+
+    let downVotes = [];
+    let upVotes= [];
+    if (localStorage.getItem("CommentDownVotes")) {
+      downVotes = JSON.parse(localStorage.getItem("CommentDownVotes"));
+    }
+
+    if (localStorage.getItem("CommentUpVotes")) {
+      upVotes = JSON.parse(localStorage.getItem("CommentUpVotes"));
+    }
+
+    if (upVotes.includes(comment_id)) {
+      setVoteError({comment_id: comment_id, message:"You have already upvoted this comment."});
+      return;
+    }
+
+    if (downVotes.includes(comment_id)) {
+      setVoteError({comment_id: comment_id, message:"You have already downvoted this comment."});
+      return;
+    }
+
+    localStorage.setItem("CommentDownVotes", JSON.stringify([...downVotes, comment_id]));
+
+    const updatedComments = comments.map((comment) => {
+      if (comment.comment_id === comment_id) {
+        return {
+          ...comment,
+          votes: comment.votes - 1,
+        };
+      }
+      return comment;
+    });
+
+    setComments(updatedComments);
+
+    try {
+      await commentDownVote(comment_id);
+
+      if (voteError) setVoteError("");
+    } catch (error) {
+      console.log(error);
+      setVoteError({comment_id: comment_id, message:"Something went wrong, your vote was not counted."});
+    }
+  };
 
   return (
     <div className="container">
@@ -20,12 +115,30 @@ export const Comments = ({comments, setComments}) => {
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>{formattedDate}</ListGroup.Item>
-                  <ListGroup.Item>Votes: {comment.votes}</ListGroup.Item>
+                  <ListGroup.Item>
+                    Votes: {comment.votes}
+                    <Button
+                      variant="outline-dark buttons"
+                      onClick={() => handleIncrementVote(comment.comment_id)}
+                      onMouseLeave={() => setVoteError("")}
+                    >
+                      +
+                    </Button>
+
+                    <Button variant="outline-dark"
+                      onClick={() => handleDecrementVote(comment.comment_id)}
+                      onMouseLeave={() => setVoteError("")}
+                    >
+                      -
+                    </Button>
+                    {voteError && voteError.comment_id === comment.comment_id && (
+                      <p className="text-danger">{voteError.message}</p>
+                    )}
+                  </ListGroup.Item>
                 </ListGroup>
                 {comment.author === localStorage.getItem("username") &&
                   <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments} />
                 }
-                {comment.error && <p className="text-danger">{comment.error}</p>}
               </Card>
             </div>
           );

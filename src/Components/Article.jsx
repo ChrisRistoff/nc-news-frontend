@@ -46,6 +46,28 @@ export const Article = () => {
   };
 
   const handleIncrementVote = async () => {
+    let upVotes= [];
+    let downVotes = [];
+    if (localStorage.getItem("ArticleUpVotes")) {
+      upVotes = JSON.parse(localStorage.getItem("ArticleUpVotes"));
+    }
+
+    if (localStorage.getItem("ArticleDownVotes")) {
+      downVotes = JSON.parse(localStorage.getItem("ArticleDownVotes"));
+    }
+
+    if (downVotes.includes(article.article_id)) {
+      setVoteError("You have already downvoted this article.");
+      return;
+    }
+
+    if (upVotes.includes(article.article_id)) {
+      setVoteError("You have already upvoted this article.");
+      return;
+    }
+
+    localStorage.setItem("ArticleUpVotes", JSON.stringify([...upVotes, article.article_id]));
+
     const updatedArticle = {
       ...article,
       votes: article.votes + 1,
@@ -64,6 +86,29 @@ export const Article = () => {
   };
 
   const handleDecrementVote = async () => {
+
+    let downVotes = [];
+    let upVotes= [];
+    if (localStorage.getItem("ArticleDownVotes")) {
+      downVotes = JSON.parse(localStorage.getItem("ArticleDownVotes"));
+    }
+
+    if (localStorage.getItem("ArticleUpVotes")) {
+      upVotes = JSON.parse(localStorage.getItem("ArticleUpVotes"));
+    }
+
+    if (upVotes.includes(article.article_id)) {
+      setVoteError("You have already upvoted this article.");
+      return;
+    }
+
+    if (downVotes.includes(article.article_id)) {
+      setVoteError("You have already downvoted this article.");
+      return;
+    }
+
+    localStorage.setItem("ArticleDownVotes", JSON.stringify([...downVotes, article.article_id]));
+
     const updatedArticle = {
       ...article,
       votes: article.votes - 1,
@@ -102,13 +147,13 @@ export const Article = () => {
           <ListGroup.Item>
             Created: {new Date(article.created_at).toLocaleDateString()}
           </ListGroup.Item>
-          <ListGroup.Item>
+          <ListGroup.Item >
             Votes: {article.votes}
-            <Button variant="outline-dark buttons" onClick={handleIncrementVote}>
+            <Button variant="outline-dark buttons" onClick={handleIncrementVote} onMouseLeave={() => setVoteError("")}>
               +
             </Button>
 
-            <Button variant="outline-dark" onClick={handleDecrementVote}>
+            <Button variant="outline-dark" onClick={handleDecrementVote} onMouseLeave={() => setVoteError("")}>
               -
             </Button>
             {voteError && <p className="error">{voteError}</p>}
