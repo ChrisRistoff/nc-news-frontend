@@ -29,6 +29,7 @@ export const Topics = () => {
     <div>
       <h1>Topics</h1>
       <Row xs={1} md={2} lg={3} className="g-4">
+
         {topics.map((topic, index) => {
           return (
             <Col key={topic.slug || index}>

@@ -9,6 +9,7 @@ import {Register} from "./Components/Register.jsx";
 import {Topics} from "./Components/Topics.jsx";
 import {ArticlesInTopic} from "./Components/ArticlesInTopic.jsx";
 import {NotFoundPage} from "./Components/NotFound.jsx";
+import {CreateArticle} from "./Components/CreateArticle.jsx";
 
 function App() {
 
@@ -18,10 +19,11 @@ function App() {
       <Routes>
         <Route path={"/login"} element={<LogIn />} />
         <Route path={"/signup"} element={<Register />} />
-        <Route path={"/"} element={<ListArticles />} />
+        <Route path={"/"} element={<Topics />} />
         <Route path={"/articles/:id"} element={<Article />} />
-        <Route path={"/topics"} element={<Topics />} />
+        <Route path={"/articles"} element={<ListArticles />} />
         <Route path={"/topics/:topic"} element={<ArticlesInTopic />} />
+        <Route path={"/:topic/articles/new"} element={<CreateArticle />} />
         <Route path={"*"} element={<NotFoundPage />} />
       </Routes>
     </>

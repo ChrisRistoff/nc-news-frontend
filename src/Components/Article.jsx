@@ -7,6 +7,7 @@ import { getComments } from "../utils/getComments.js";
 import { incrementVotes, decrementVotes } from "../utils/handleArticleVotes.js";
 import {CreateNewComment} from "./CreateNewComment.jsx";
 import {NotFoundPage} from "./NotFound.jsx";
+import {DeleteArticle} from "./DeleteArticle.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -140,6 +141,9 @@ export const Article = () => {
             <h1>{article.title}</h1>
           </Card.Title>
           <Card.Text>{article.body}</Card.Text>
+
+         {localStorage.getItem("username") === article.author &&
+           <DeleteArticle article_id={article.article_id} />  }
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroup.Item>Author: {article.author}</ListGroup.Item>
@@ -159,6 +163,14 @@ export const Article = () => {
             {voteError && <p className="error">{voteError}</p>}
           </ListGroup.Item>
         </ListGroup>
+        {localStorage.getItem("username") ?
+          <Link to={`/${article.topic}/articles/new`} className={"btn btn-outline-dark buttons"}>Create new article in this topic</Link> :
+          <div>
+            <Link to={`/login`} className={"btn btn-outline-dark buttons"}>Log in</Link>
+            or
+            <Link to={`/signup`} className={"btn btn-outline-dark buttons"}>Register</Link>
+            To create a new article in this topic
+          </div>}
         <Card.Body>
           <Button variant="outline-dark" onClick={loadComments}>
             Comments ({article.comment_count})
@@ -167,11 +179,10 @@ export const Article = () => {
           {localStorage.getItem("username") ?
             <Button variant="outline-dark buttons" onClick={handleExpand}>Add Comment</Button> :
             <div>
-              You have to
-             <Link to="/login" className="btn btn-outline-secondary buttons" >Login</Link>
+              <Link to="/login" className="btn btn-outline-secondary buttons">Login</Link>
               or
-              <Link to="/signup" className="btn btn-outline-secondary buttons" >Register</Link>
-              to submit a comment
+              <Link to="/signup" className="btn btn-outline-secondary buttons">Register</Link>
+              To submit a comment
             </div>}
 
           {expandNewComment && <CreateNewComment articleId={id} comments={comments} setComment={setComments}/>}
