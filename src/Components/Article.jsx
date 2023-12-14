@@ -147,8 +147,13 @@ export const Article = () => {
             <h1>{article.title}</h1>
           </Card.Title>
           { !editToggle && localStorage.getItem("username") === article.author ?
-          <Card.Text>{article.body}<p> <Button className={"buttons"} variant={"outline-dark"} onClick={handleEditToggle}>Edit article</Button>  <DeleteArticle article_id={article.article_id}/> </p></Card.Text>
-            :<EditArticleBody article={article} setArticle={setArticle}/> }
+            <div>
+            <Card.Text>{article.body}</Card.Text>
+              <Button className={"buttons"} variant={"outline-dark"} onClick={handleEditToggle}>Edit article</Button>
+              <DeleteArticle article_id={article.article_id}/>
+            </div>
+            : editToggle ? <EditArticleBody article={article} setArticle={setArticle} setToggle={setEditToggle}/>
+            : <Card.Text>{article.body}</Card.Text> }
 
         </Card.Body>
         <ListGroup className="list-group-flush">

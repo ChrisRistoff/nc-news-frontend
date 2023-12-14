@@ -1,20 +1,31 @@
 import {Button, Form} from "react-bootstrap";
 import {useState} from "react";
-import {editArticleBody} from "../utils/editArticleBody.js";
 import {useNavigate} from "react-router-dom";
+import {editCommentBody} from "../utils/editCommentBody.js";
 
-export const EditArticleBody = ({ article, setArticle, setToggle }) => {
-  const [body, setBody] = useState(article.body);
+export const EditCommentBody = ({ comment_id, comments, setComments, setToggle }) => {
+  let index;
+  for (let i = 0; i < comments.length; i++) {
+    if (comment_id === comments[i].comment_id) {
+      index = i;
+      break;
+    }
+  }
+
+  const [body, setBody] = useState(comments[index].body);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const updatedArticle = await editArticleBody(article.article_id, body);
-      setArticle(updatedArticle.data.article);
+      const updatedComment = await editCommentBody(comment_id, body);
 
+      const commentsCopy = [...comments];
+      commentsCopy[index] = updatedComment;
+      setComments(commentsCopy);
       setToggle(false);
+
       // navigate(0);
     } catch (error) {
       console.log(error);
@@ -23,12 +34,12 @@ export const EditArticleBody = ({ article, setArticle, setToggle }) => {
 
   return (
     <Form onSubmit={(e) => handleSubmit(e)}>
-      <Form.Group controlId="formArticleBody">
-        <Form.Label>Article Body</Form.Label>
+      <Form.Group controlId="formCommentBody">
+        <Form.Label>Comment Body</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
-          placeholder="Enter article body"
+          placeholder="Enter comment body"
           value={body}
           onChange={(event) => setBody(event.target.value)}
         />

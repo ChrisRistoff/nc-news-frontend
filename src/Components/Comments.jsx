@@ -2,10 +2,14 @@ import {Button, Card, ListGroup} from "react-bootstrap";
 import {DeleteComment} from "./DeleteComment.jsx";
 import {useState} from "react";
 import {commentDownVote, commentUpVote} from "../utils/handleCommentVotes.js";
+import {EditCommentBody} from "./EditCommentBody.jsx";
+import {DeleteArticle} from "./DeleteArticle.jsx";
+import {EditArticleBody} from "./EditArticleBody.jsx";
 
 export const Comments = ({comments, setComments}) => {
 
   const [voteError, setVoteError] = useState(null);
+  const [editToggle, setEditToggle] = useState(false);
 
   const handleIncrementVote = async (comment_id) => {
     let upVotes= [];
@@ -98,6 +102,10 @@ export const Comments = ({comments, setComments}) => {
     }
   };
 
+  const handleEditToggle = () => {
+    setEditToggle(true)
+  }
+
   return (
     <div className="container">
       <h1 className="text-center">Comments</h1>
@@ -109,9 +117,14 @@ export const Comments = ({comments, setComments}) => {
               <Card className="mb-3">
                 <Card.Body>
                   <Card.Title>{comment.author}</Card.Title>
-                  <Card.Text>
-                    {comment.body}
-                  </Card.Text>
+                    { !editToggle && localStorage.getItem("username") === comment.author ?
+                      <div>
+                      <Card.Text>{comment.body}</Card.Text>
+                          <Button className={"buttons"} variant={"outline-dark"} onClick={() => handleEditToggle()}>Edit comment</Button>
+                          <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments}/>
+                      </div>
+                      : editToggle ? <EditCommentBody comment_id={comment.comment_id} comments={comments} setComments={setComments} setToggle={setEditToggle} />
+                      : <Card.Text>comment.body</Card.Text>}
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>{formattedDate}</ListGroup.Item>
@@ -136,9 +149,7 @@ export const Comments = ({comments, setComments}) => {
                     )}
                   </ListGroup.Item>
                 </ListGroup>
-                {comment.author === localStorage.getItem("username") &&
-                  <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments} />
-                }
+
               </Card>
             </div>
           );
