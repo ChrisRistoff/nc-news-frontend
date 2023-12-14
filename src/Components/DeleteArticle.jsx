@@ -44,7 +44,7 @@ export const DeleteArticle = ({ article_id }) => {
         </Modal.Dialog>
       </div>}
       <Button variant="danger" onClick={handleModal}>
-        Delete
+        Delete article
       </Button>
       {error && <p className="text-danger">{error}</p>}
     </div>

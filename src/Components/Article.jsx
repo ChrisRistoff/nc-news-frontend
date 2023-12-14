@@ -8,6 +8,7 @@ import { incrementVotes, decrementVotes } from "../utils/handleArticleVotes.js";
 import {CreateNewComment} from "./CreateNewComment.jsx";
 import {NotFoundPage} from "./NotFound.jsx";
 import {DeleteArticle} from "./DeleteArticle.jsx";
+import {EditArticleBody} from "./EditArticleBody.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -15,6 +16,7 @@ export const Article = () => {
   const [comments, setComments] = useState(null);
   const [voteError, setVoteError] = useState("");
   const [expandNewComment, setExpandNewComment] = useState(false);
+  const [editToggle, setEditToggle] = useState(false);
 
   let { id } = useParams();
 
@@ -131,6 +133,10 @@ export const Article = () => {
     setExpandNewComment(!expandNewComment);
   }
 
+  const handleEditToggle = () => {
+    setEditToggle(true);
+  }
+
   return (
     <div>
       {isLoading ? <h1>Loading...</h1> :
@@ -140,10 +146,10 @@ export const Article = () => {
           <Card.Title>
             <h1>{article.title}</h1>
           </Card.Title>
-          <Card.Text>{article.body}</Card.Text>
+          { !editToggle && localStorage.getItem("username") === article.author ?
+          <Card.Text>{article.body}<p> <Button className={"buttons"} variant={"outline-dark"} onClick={handleEditToggle}>Edit article</Button>  <DeleteArticle article_id={article.article_id}/> </p></Card.Text>
+            :<EditArticleBody article={article} setArticle={setArticle}/> }
 
-         {localStorage.getItem("username") === article.author &&
-           <DeleteArticle article_id={article.article_id} />  }
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroup.Item>Author: {article.author}</ListGroup.Item>
