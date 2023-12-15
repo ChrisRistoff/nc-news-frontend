@@ -6,8 +6,10 @@ import {NotFoundPage} from "./NotFound.jsx";
 
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [queryString, setQueryString] = useState(query);
+  const [paginationQuery, setPaginationQuery] = useState(queryString);
 
   const [queried, setQueried] = useState(false);
   const [order, setOrder] = useState("");
@@ -18,8 +20,10 @@ export const ListArticles = ({query}) => {
     const fetchArticles = async (queryString) => {
 
       try {
-        const articles = await getArticles(queryString);
-        setArticles(articles);
+        let data = await getArticles(queryString);
+        setPaginationQuery(queryString);
+        setTotalArticles(data.total_count);
+        setArticles(data.articles);
       } catch (error) {
       } finally {
         setIsLoading(false);

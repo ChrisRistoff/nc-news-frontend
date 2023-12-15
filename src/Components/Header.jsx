@@ -2,6 +2,7 @@ import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {useContext} from "react";
 import {LoggedInContext} from "../contexts/loggedInContext.jsx";
 import {Link, useNavigate} from "react-router-dom";
+import LogoImage from "../public/logo.png";
 
 export const Header = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(LoggedInContext);
@@ -18,7 +19,7 @@ export const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">NC News</Navbar.Brand>
+        <Navbar.Brand href="/"><img src={LogoImage} width={"140px"}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

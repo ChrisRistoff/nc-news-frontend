@@ -49,39 +49,43 @@ export const Article = () => {
   };
 
   const handleIncrementVote = async () => {
-    let upVotes = [];
-    let downVotes = [];
+    let increment = 1;
+    let UserUpVotes = new Set()
+    let UserDownVotes = new Set();
+
     if (localStorage.getItem("ArticleUpVotes")) {
-      upVotes = JSON.parse(localStorage.getItem("ArticleUpVotes"));
+      UserUpVotes = new Set(JSON.parse(localStorage.getItem("ArticleUpVotes")));
     }
 
     if (localStorage.getItem("ArticleDownVotes")) {
-      downVotes = JSON.parse(localStorage.getItem("ArticleDownVotes"));
+      UserDownVotes = new Set(JSON.parse(localStorage.getItem("ArticleDownVotes")));
     }
 
-    if (downVotes.includes(article.article_id)) {
-      setVoteError("You have already downvoted this article.");
-      return;
-    }
-
-    if (upVotes.includes(article.article_id)) {
+    if (UserUpVotes.has(article.article_id)) {
       setVoteError("You have already upvoted this article.");
       return;
     }
 
-    localStorage.setItem("ArticleUpVotes", JSON.stringify([...upVotes, article.article_id]));
+    if (UserDownVotes.has(article.article_id)) {
+      UserDownVotes.delete(article.article_id);
+      localStorage.setItem("ArticleDownVotes", JSON.stringify([...UserDownVotes]));
+      increment++;
+    }
+
+    localStorage.setItem("ArticleUpVotes", JSON.stringify([...UserUpVotes, article.article_id]));
 
     const updatedArticle = {
       ...article,
-      votes: article.votes + 1,
+      votes: article.votes + increment,
     };
 
     setArticle(updatedArticle);
 
     try {
-      await incrementVotes(article.article_id);
+      await incrementVotes(article.article_id, increment);
 
-      if (voteError) setVoteError("");
+      setVoteError("");
+
     } catch (error) {
       console.log(error);
       setVoteError("Something went wrong, your vote was not counted.");
@@ -90,39 +94,42 @@ export const Article = () => {
 
   const handleDecrementVote = async () => {
 
-    let downVotes = [];
-    let upVotes = [];
+    let decrement = -1;
+    let UserDownVotes = new Set();
+    let UserUpVotes = new Set();
+
     if (localStorage.getItem("ArticleDownVotes")) {
-      downVotes = JSON.parse(localStorage.getItem("ArticleDownVotes"));
+      UserDownVotes = new Set(JSON.parse(localStorage.getItem("ArticleDownVotes")));
     }
 
     if (localStorage.getItem("ArticleUpVotes")) {
-      upVotes = JSON.parse(localStorage.getItem("ArticleUpVotes"));
+      UserUpVotes = new Set(JSON.parse(localStorage.getItem("ArticleUpVotes")));
     }
 
-    if (upVotes.includes(article.article_id)) {
-      setVoteError("You have already upvoted this article.");
-      return;
-    }
-
-    if (downVotes.includes(article.article_id)) {
+    if (UserDownVotes.has(article.article_id)) {
       setVoteError("You have already downvoted this article.");
       return;
     }
 
-    localStorage.setItem("ArticleDownVotes", JSON.stringify([...downVotes, article.article_id]));
+    if (UserUpVotes.has(article.article_id)) {
+      UserUpVotes.delete(article.article_id);
+      localStorage.setItem("ArticleUpVotes", JSON.stringify([...UserUpVotes]));
+      decrement--;
+    }
+
+    localStorage.setItem("ArticleDownVotes", JSON.stringify([...UserDownVotes, article.article_id]));
 
     const updatedArticle = {
       ...article,
-      votes: article.votes - 1,
+      votes: article.votes + decrement,
     };
 
     setArticle(updatedArticle);
 
     try {
-      await decrementVotes(article.article_id);
+      await decrementVotes(article.article_id, decrement);
 
-      if (voteError) setVoteError("");
+      setVoteError("")
     } catch (error) {
       console.log(error);
       setVoteError("Something went wrong, your vote was not counted.");

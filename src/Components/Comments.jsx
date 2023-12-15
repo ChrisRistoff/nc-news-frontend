@@ -5,6 +5,7 @@ import {commentDownVote, commentUpVote} from "../utils/handleCommentVotes.js";
 import {EditCommentBody} from "./EditCommentBody.jsx";
 import {DeleteArticle} from "./DeleteArticle.jsx";
 import {EditArticleBody} from "./EditArticleBody.jsx";
+import {incrementVotes} from "../utils/handleArticleVotes.js";
 
 export const Comments = ({comments, setComments}) => {
 
@@ -12,33 +13,37 @@ export const Comments = ({comments, setComments}) => {
   const [editToggle, setEditToggle] = useState(false);
 
   const handleIncrementVote = async (comment_id) => {
-    let upVotes = [];
-    let downVotes = [];
+
+    let increment = 1;
+    let UserUpVotes = new Set();
+    let UserDownVotes = new Set();
+
     if (localStorage.getItem("CommentUpVotes")) {
-      upVotes = JSON.parse(localStorage.getItem("CommentUpVotes"));
+      UserUpVotes = new Set(JSON.parse(localStorage.getItem("CommentUpVotes")));
     }
 
     if (localStorage.getItem("CommentDownVotes")) {
-      downVotes = JSON.parse(localStorage.getItem("CommentDownVotes"));
+      UserDownVotes = new Set(JSON.parse(localStorage.getItem("CommentDownVotes")));
     }
 
-    if (downVotes.includes(comment_id)) {
-      setVoteError({comment_id: comment_id, message: "You have already downvoted this comment."});
-      return;
-    }
-
-    if (upVotes.includes(comment_id)) {
+    if (UserUpVotes.has(comment_id)) {
       setVoteError({comment_id: comment_id, message: "You have already upvoted this comment."});
       return;
     }
 
-    localStorage.setItem("CommentUpVotes", JSON.stringify([...upVotes, comment_id]));
+    if (UserDownVotes.has(comment_id)) {
+      UserDownVotes.delete(comment_id);
+      localStorage.setItem("CommentDownVotes", JSON.stringify([...UserDownVotes]));
+      increment++;
+    }
+
+    localStorage.setItem("CommentUpVotes", JSON.stringify([...UserUpVotes, comment_id]));
 
     const updatedComments = comments.map((comment) => {
       if (comment.comment_id === comment_id) {
         return {
           ...comment,
-          votes: comment.votes + 1,
+          votes: comment.votes + increment,
         };
       }
       return comment;
@@ -47,7 +52,7 @@ export const Comments = ({comments, setComments}) => {
     setComments(updatedComments);
 
     try {
-      await commentUpVote(comment_id);
+      await commentUpVote(comment_id, increment);
 
       if (voteError) setVoteError("");
     } catch (error) {
@@ -58,33 +63,36 @@ export const Comments = ({comments, setComments}) => {
 
   const handleDecrementVote = async (comment_id) => {
 
-    let downVotes = [];
-    let upVotes = [];
+    let decrement = -1;
+    let UserDownVotes = new Set();
+    let UserUpVotes = new Set();
+
     if (localStorage.getItem("CommentDownVotes")) {
-      downVotes = JSON.parse(localStorage.getItem("CommentDownVotes"));
+      UserDownVotes = new Set(JSON.parse(localStorage.getItem("CommentDownVotes")));
     }
 
     if (localStorage.getItem("CommentUpVotes")) {
-      upVotes = JSON.parse(localStorage.getItem("CommentUpVotes"));
+      UserUpVotes = new Set(JSON.parse(localStorage.getItem("CommentUpVotes")));
     }
 
-    if (upVotes.includes(comment_id)) {
-      setVoteError({comment_id: comment_id, message: "You have already upvoted this comment."});
-      return;
-    }
-
-    if (downVotes.includes(comment_id)) {
+    if (UserDownVotes.has(comment_id)) {
       setVoteError({comment_id: comment_id, message: "You have already downvoted this comment."});
       return;
     }
 
-    localStorage.setItem("CommentDownVotes", JSON.stringify([...downVotes, comment_id]));
+    if (UserUpVotes.has(comment_id)) {
+      UserUpVotes.delete(comment_id);
+      localStorage.setItem("CommentUpVotes", JSON.stringify([...UserUpVotes]));
+      decrement--;
+    }
+
+    localStorage.setItem("CommentDownVotes", JSON.stringify([...UserDownVotes, comment_id]));
 
     const updatedComments = comments.map((comment) => {
       if (comment.comment_id === comment_id) {
         return {
           ...comment,
-          votes: comment.votes - 1,
+          votes: comment.votes + decrement,
         };
       }
       return comment;
@@ -93,7 +101,7 @@ export const Comments = ({comments, setComments}) => {
     setComments(updatedComments);
 
     try {
-      await commentDownVote(comment_id);
+      await commentDownVote(comment_id, decrement);
 
       if (voteError) setVoteError("");
     } catch (error) {
