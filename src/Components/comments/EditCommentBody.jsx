@@ -1,7 +1,6 @@
 import {Button, Form} from "react-bootstrap";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {editCommentBody} from "../utils/editCommentBody.js";
+import {editCommentBody} from "../../utils/editCommentBody.js";
 
 export const EditCommentBody = ({comment_id, comments, setComments, setToggle}) => {
   let index;

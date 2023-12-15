@@ -1,7 +1,7 @@
 import {Button, Form} from "react-bootstrap";
 import {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {createArticle} from "../utils/createArticle.js";
+import {createArticle} from "../../utils/createArticle.js";
 
 export const CreateArticle = () => {
   const [articleError, setArticleError] = useState("");

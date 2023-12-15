@@ -1,15 +1,15 @@
-import {getArticleById} from "../utils/getArticleById.js";
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {Button, Card, ListGroup} from "react-bootstrap";
-import {Comments} from "./Comments.jsx";
-import {getComments} from "../utils/getComments.js";
-import {incrementVotes, decrementVotes} from "../utils/handleArticleVotes.js";
-import {CreateNewComment} from "./CreateNewComment.jsx";
-import {NotFoundPage} from "./NotFound.jsx";
+import {getArticleById} from "../../utils/getArticleById.js";
+import {getComments} from "../../utils/getComments.js";
+import {decrementVotes, incrementVotes} from "../../utils/handleArticleVotes.js";
 import {DeleteArticle} from "./DeleteArticle.jsx";
 import {EditArticleBody} from "./EditArticleBody.jsx";
-import {Paginate} from "./Pagination.jsx";
+import {CreateNewComment} from "../comments/CreateNewComment.jsx";
+import {NotFoundPage} from "../NotFound.jsx";
+import {Comments} from "../comments/Comments.jsx";
+import {Paginate} from "../Pagination.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -24,7 +24,6 @@ export const Article = () => {
 
   const [userUpVotes, setUserUpVotes] = useState(new Set(JSON.parse(localStorage.getItem("ArticleUpVotes"))) || new Set());
   const [userDownVotes, setUserDownVotes] = useState(new Set(JSON.parse(localStorage.getItem("ArticleDownVotes"))) || new Set());
-  const [loadComments, setLoadComments] = useState(false);
 
   let {id} = useParams();
 
@@ -45,7 +44,7 @@ export const Article = () => {
     }
 
     fetchArticle();
-  }, [article]);
+  }, []);
 
   useEffect(() => {
     const loadComments = async () => {

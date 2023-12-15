@@ -1,8 +1,8 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useContext, useState} from "react";
-import {registerUser} from "../utils/registerUser.js";
 import {useNavigate} from "react-router-dom";
-import {LoggedInContext} from "../contexts/loggedInContext.jsx";
+import {LoggedInContext} from "../../contexts/loggedInContext.jsx";
+import {registerUser} from "../../utils/registerUser.js";
 
 export const Register = () => {
   const [username, setUsername] = useState("");

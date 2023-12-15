@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Button, Modal} from "react-bootstrap";
-import {deleteArticle} from "../utils/deleteArticle.js";
 import {useNavigate} from "react-router-dom";
+import {deleteArticle} from "../../utils/deleteArticle.js";
 
 export const DeleteArticle = ({article_id}) => {
   const [showModal, setShowModal] = useState(false);

@@ -1,15 +1,15 @@
 import './App.css'
-import {ListArticles} from "./Components/ListArticles.jsx";
 import {Route, Routes} from "react-router-dom";
-import {Article} from "./Components/Article.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Header} from "./Components/Header.jsx";
-import {LogIn} from "./Components/LogIn.jsx";
-import {Register} from "./Components/Register.jsx";
-import {Topics} from "./Components/Topics.jsx";
-import {ArticlesInTopic} from "./Components/ArticlesInTopic.jsx";
+import {LogIn} from "./Components/users/LogIn.jsx";
+import {Register} from "./Components/users/Register.jsx";
+import {Topics} from "./Components/topics/Topics.jsx";
+import {Article} from "./Components/article/Article.jsx";
+import {ListArticles} from "./Components/article/ListArticles.jsx";
+import {ArticlesInTopic} from "./Components/topics/ArticlesInTopic.jsx";
+import {CreateArticle} from "./Components/article/CreateArticle.jsx";
 import {NotFoundPage} from "./Components/NotFound.jsx";
-import {CreateArticle} from "./Components/CreateArticle.jsx";
 
 function App() {
 

@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {createNewComment} from "../utils/createNewComment.js";
 import {Button, Form} from "react-bootstrap";
+import {createNewComment} from "../../utils/createNewComment.js";
 
 export const CreateNewComment = ({articleId, comments, setComments}) => {
   const [commentError, setCommentError] = useState("");

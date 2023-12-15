@@ -1,7 +1,7 @@
 import {Link, useParams} from 'react-router-dom';
-import {ListArticles} from "./ListArticles.jsx";
 import {useState} from "react";
 import {ActiveUsersInAtopic} from "./ActiveUsersInAtopic.jsx";
+import {ListArticles} from "../article/ListArticles.jsx";
 
 export const ArticlesInTopic = () => {
   const [showUsers, setShowUsers] = useState(false);

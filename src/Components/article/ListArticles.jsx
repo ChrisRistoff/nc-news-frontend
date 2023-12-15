@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {Button, Card, Col, Form, ListGroup, Row} from "react-bootstrap";
-import {getArticles} from "../utils/getArticles.js";
 import {Link} from "react-router-dom";
-import {NotFoundPage} from "./NotFound.jsx";
-import {Paginate} from "./Pagination.jsx";
+import {getArticles} from "../../utils/getArticles.js";
+import {NotFoundPage} from "../NotFound.jsx";
+import {Paginate} from "../Pagination.jsx";
 
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);

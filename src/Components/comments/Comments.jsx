@@ -1,8 +1,8 @@
 import {Button, Card, ListGroup} from "react-bootstrap";
-import {DeleteComment} from "./DeleteComment.jsx";
 import {useState} from "react";
-import {commentDownVote, commentUpVote} from "../utils/handleCommentVotes.js";
 import {EditCommentBody} from "./EditCommentBody.jsx";
+import {commentDownVote, commentUpVote} from "../../utils/handleCommentVotes.js";
+import {DeleteComment} from "./DeleteComment.jsx";
 
 export const Comments = ({comments, setComments}) => {
 

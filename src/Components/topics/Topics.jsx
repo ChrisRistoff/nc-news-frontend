@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {getTopics} from "../utils/getTopics.js";
+import {getTopics} from "../../utils/getTopics.js";
 
 export const Topics = () => {
   const [topics, setTopics] = useState([]);

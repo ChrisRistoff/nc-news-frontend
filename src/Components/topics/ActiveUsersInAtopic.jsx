@@ -1,6 +1,6 @@
 import {Card, Col, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {getActiveUsersInTopic} from "../utils/getActiveUsersInTopic.js";
+import {getActiveUsersInTopic} from "../../utils/getActiveUsersInTopic.js";
 
 export const ActiveUsersInAtopic = ({topic}) => {
   const [users, setUsers] = useState([]);

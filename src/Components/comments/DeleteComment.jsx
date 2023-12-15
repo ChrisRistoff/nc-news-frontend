@@ -1,6 +1,6 @@
 import {Button, Modal} from "react-bootstrap";
 import {useState} from "react";
-import {deleteComment} from "../utils/deleteComment.js";
+import {deleteComment} from "../../utils/deleteComment.js";
 
 export const DeleteComment = ({comment_id, comments, setComments}) => {
   const [commentError, setCommentError] = useState("");

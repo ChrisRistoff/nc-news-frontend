@@ -1,7 +1,6 @@
 import {Button, Form} from "react-bootstrap";
 import {useState} from "react";
-import {editArticleBody} from "../utils/editArticleBody.js";
-import {useNavigate} from "react-router-dom";
+import {editArticleBody} from "../../utils/editArticleBody.js";
 
 export const EditArticleBody = ({article, setArticle, setToggle}) => {
   const [body, setBody] = useState(article.body);
