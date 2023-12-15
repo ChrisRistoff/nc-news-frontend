@@ -22,8 +22,9 @@ export const Comments = ({comments, setComments}) => {
     let increment = 1;
 
     if (userUpVotes.has(comment_id)) {
-      setVoteError({comment_id: comment_id, message: "You have already upvoted this comment."});
-      return;
+      increment = -1;
+      userUpVotes.delete(comment_id);
+      localStorage.setItem("CommentUpVotes", JSON.stringify([...userUpVotes]));
     }
 
     if (userDownVotes.has(comment_id)) {
@@ -32,8 +33,10 @@ export const Comments = ({comments, setComments}) => {
       increment++;
     }
 
-    localStorage.setItem("CommentUpVotes", JSON.stringify([...userUpVotes, comment_id]));
-    setUserUpVotes(userUpVotes.add(comment_id));
+    if (increment > 0) {
+      localStorage.setItem("CommentUpVotes", JSON.stringify([...userUpVotes, comment_id]));
+      setUserUpVotes(userUpVotes.add(comment_id));
+    }
 
     const updatedComments = comments.map((comment) => {
       if (comment.comment_id === comment_id) {
@@ -67,8 +70,9 @@ export const Comments = ({comments, setComments}) => {
     let decrement = -1;
 
     if (userDownVotes.has(comment_id)) {
-      setVoteError({comment_id: comment_id, message: "You have already downvoted this comment."});
-      return;
+      decrement = 1;
+      userDownVotes.delete(comment_id);
+      localStorage.setItem("CommentDownVotes", JSON.stringify([...userDownVotes]));
     }
 
     if (userUpVotes.has(comment_id)) {
@@ -77,8 +81,10 @@ export const Comments = ({comments, setComments}) => {
       decrement--;
     }
 
-    localStorage.setItem("CommentDownVotes", JSON.stringify([...userDownVotes, comment_id]));
-    setUserDownVotes(userDownVotes.add(comment_id));
+    if (decrement < 0) {
+      localStorage.setItem("CommentDownVotes", JSON.stringify([...userDownVotes, comment_id]));
+      setUserDownVotes(userDownVotes.add(comment_id));
+    }
 
     const updatedComments = comments.map((comment) => {
       if (comment.comment_id === comment_id) {

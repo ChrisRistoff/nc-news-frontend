@@ -72,8 +72,10 @@ export const Article = () => {
       increment++;
     }
 
-    localStorage.setItem("ArticleUpVotes", JSON.stringify([...userUpVotes, article.article_id]));
-    setUserUpVotes(userUpVotes.add(article.article_id))
+    if (increment > 0) {
+      localStorage.setItem("ArticleUpVotes", JSON.stringify([...userUpVotes, article.article_id]));
+      setUserUpVotes(userUpVotes.add(article.article_id))
+    }
 
     const updatedArticle = {
       ...article,
@@ -103,8 +105,9 @@ export const Article = () => {
     let decrement = -1;
 
     if (userDownVotes.has(article.article_id)) {
-      setVoteError("You have already downvoted this article.");
-      return;
+      decrement = 1;
+      userDownVotes.delete(article.article_id);
+      localStorage.setItem("ArticleDownVotes", JSON.stringify([...userDownVotes]));
     }
 
     if (userUpVotes.has(article.article_id)) {
@@ -113,8 +116,10 @@ export const Article = () => {
       decrement--;
     }
 
-    localStorage.setItem("ArticleDownVotes", JSON.stringify([...userDownVotes, article.article_id]));
-    setUserDownVotes(userDownVotes.add(article.article_id))
+    if (decrement < 0) {
+      localStorage.setItem("ArticleDownVotes", JSON.stringify([...userDownVotes, article.article_id]));
+      setUserDownVotes(userDownVotes.add(article.article_id))
+    }
 
     const updatedArticle = {
       ...article,
