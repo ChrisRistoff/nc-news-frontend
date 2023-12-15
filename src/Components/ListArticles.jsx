@@ -16,7 +16,6 @@ export const ListArticles = ({query}) => {
   const [orderBy, setOrderBy] = useState("");
 
   useEffect(() => {
-
     const fetchArticles = async (queryString) => {
 
       try {

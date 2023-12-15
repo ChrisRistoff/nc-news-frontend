@@ -3,41 +3,37 @@ import {DeleteComment} from "./DeleteComment.jsx";
 import {useState} from "react";
 import {commentDownVote, commentUpVote} from "../utils/handleCommentVotes.js";
 import {EditCommentBody} from "./EditCommentBody.jsx";
-import {DeleteArticle} from "./DeleteArticle.jsx";
-import {EditArticleBody} from "./EditArticleBody.jsx";
-import {incrementVotes} from "../utils/handleArticleVotes.js";
 
 export const Comments = ({comments, setComments}) => {
 
   const [voteError, setVoteError] = useState(null);
   const [editToggle, setEditToggle] = useState(false);
 
+  const [userUpVotes, setUserUpVotes] = useState(new Set(JSON.parse(localStorage.getItem("CommentUpVotes"))) || new Set());
+  const [userDownVotes, setUserDownVotes] = useState(new Set(JSON.parse(localStorage.getItem("CommentUpVotes"))) || new Set());
+
   const handleIncrementVote = async (comment_id) => {
 
+    if (!localStorage.getItem("token")) {
+      setVoteError({comment_id: comment_id, message: "You must be logged in to vote."});
+      return;
+    }
+
     let increment = 1;
-    let UserUpVotes = new Set();
-    let UserDownVotes = new Set();
 
-    if (localStorage.getItem("CommentUpVotes")) {
-      UserUpVotes = new Set(JSON.parse(localStorage.getItem("CommentUpVotes")));
-    }
-
-    if (localStorage.getItem("CommentDownVotes")) {
-      UserDownVotes = new Set(JSON.parse(localStorage.getItem("CommentDownVotes")));
-    }
-
-    if (UserUpVotes.has(comment_id)) {
+    if (userUpVotes.has(comment_id)) {
       setVoteError({comment_id: comment_id, message: "You have already upvoted this comment."});
       return;
     }
 
-    if (UserDownVotes.has(comment_id)) {
-      UserDownVotes.delete(comment_id);
-      localStorage.setItem("CommentDownVotes", JSON.stringify([...UserDownVotes]));
+    if (userDownVotes.has(comment_id)) {
+      userDownVotes.delete(comment_id);
+      localStorage.setItem("CommentDownVotes", JSON.stringify([...userUpVotes]));
       increment++;
     }
 
-    localStorage.setItem("CommentUpVotes", JSON.stringify([...UserUpVotes, comment_id]));
+    localStorage.setItem("CommentUpVotes", JSON.stringify([...userUpVotes, comment_id]));
+    setUserUpVotes(userUpVotes.add(comment_id));
 
     const updatedComments = comments.map((comment) => {
       if (comment.comment_id === comment_id) {
@@ -63,30 +59,26 @@ export const Comments = ({comments, setComments}) => {
 
   const handleDecrementVote = async (comment_id) => {
 
+    if (!localStorage.getItem("token")) {
+      setVoteError({comment_id: comment_id, message: "You must be logged in to vote."});
+      return;
+    }
+
     let decrement = -1;
-    let UserDownVotes = new Set();
-    let UserUpVotes = new Set();
 
-    if (localStorage.getItem("CommentDownVotes")) {
-      UserDownVotes = new Set(JSON.parse(localStorage.getItem("CommentDownVotes")));
-    }
-
-    if (localStorage.getItem("CommentUpVotes")) {
-      UserUpVotes = new Set(JSON.parse(localStorage.getItem("CommentUpVotes")));
-    }
-
-    if (UserDownVotes.has(comment_id)) {
+    if (userDownVotes.has(comment_id)) {
       setVoteError({comment_id: comment_id, message: "You have already downvoted this comment."});
       return;
     }
 
-    if (UserUpVotes.has(comment_id)) {
-      UserUpVotes.delete(comment_id);
-      localStorage.setItem("CommentUpVotes", JSON.stringify([...UserUpVotes]));
+    if (userUpVotes.has(comment_id)) {
+      userUpVotes.delete(comment_id);
+      localStorage.setItem("CommentUpVotes", JSON.stringify([...userUpVotes]));
       decrement--;
     }
 
-    localStorage.setItem("CommentDownVotes", JSON.stringify([...UserDownVotes, comment_id]));
+    localStorage.setItem("CommentDownVotes", JSON.stringify([...userDownVotes, comment_id]));
+    setUserDownVotes(userDownVotes.add(comment_id));
 
     const updatedComments = comments.map((comment) => {
       if (comment.comment_id === comment_id) {
@@ -135,26 +127,40 @@ export const Comments = ({comments, setComments}) => {
                     : editToggle ?
                       <EditCommentBody comment_id={comment.comment_id} comments={comments} setComments={setComments}
                                        setToggle={setEditToggle}/>
-                      : <Card.Text>comment.body</Card.Text>}
+                      : <Card.Text>{comment.body}</Card.Text>}
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>{formattedDate}</ListGroup.Item>
                   <ListGroup.Item>
                     Votes: {comment.votes}
-                    <Button
-                      variant="outline-dark buttons"
-                      onClick={() => handleIncrementVote(comment.comment_id)}
-                      onMouseLeave={() => setVoteError("")}
-                    >
-                      +
-                    </Button>
+                    {userUpVotes.has(comment.comment_id) ?
+                      <Button
+                        variant="dark buttons"
+                        onClick={() => handleIncrementVote(comment.comment_id)}
+                        onMouseLeave={() => setVoteError("")}
+                      >
+                        +
+                      </Button> :
+                      <Button variant="outline-dark buttons"
+                              onClick={() => handleIncrementVote(comment.comment_id)}
+                              onMouseLeave={() => setVoteError("")}
+                      >
+                        +
+                      </Button>}
 
-                    <Button variant="outline-dark"
-                            onClick={() => handleDecrementVote(comment.comment_id)}
-                            onMouseLeave={() => setVoteError("")}
-                    >
-                      -
-                    </Button>
+                    {userDownVotes.has(comment.comment_id) ?
+                      <Button variant="dark buttons"
+                              onClick={() => handleDecrementVote(comment.comment_id)}
+                              onMouseLeave={() => setVoteError("")}
+                      >
+                        -
+                      </Button> :
+                      <Button variant="outline-dark buttons"
+                              onClick={() => handleDecrementVote(comment.comment_id)}
+                              onMouseLeave={() => setVoteError("")}
+                      >
+                        -
+                      </Button>}
                     {voteError && voteError.comment_id === comment.comment_id && (
                       <p className="text-danger">{voteError.message}</p>
                     )}

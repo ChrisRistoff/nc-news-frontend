@@ -18,6 +18,9 @@ export const Article = () => {
   const [expandNewComment, setExpandNewComment] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
 
+  const [userUpVotes, setUserUpVotes] = useState(new Set(JSON.parse(localStorage.getItem("ArticleUpVotes"))) || new Set());
+  const [userDownVotes, setUserDownVotes] = useState(new Set(JSON.parse(localStorage.getItem("ArticleDownVotes"))) || new Set());
+
   let {id} = useParams();
 
   useEffect(() => {
@@ -49,30 +52,28 @@ export const Article = () => {
   };
 
   const handleIncrementVote = async () => {
-    let increment = 1;
-    let UserUpVotes = new Set()
-    let UserDownVotes = new Set();
 
-    if (localStorage.getItem("ArticleUpVotes")) {
-      UserUpVotes = new Set(JSON.parse(localStorage.getItem("ArticleUpVotes")));
-    }
-
-    if (localStorage.getItem("ArticleDownVotes")) {
-      UserDownVotes = new Set(JSON.parse(localStorage.getItem("ArticleDownVotes")));
-    }
-
-    if (UserUpVotes.has(article.article_id)) {
-      setVoteError("You have already upvoted this article.");
+    if (!localStorage.getItem("token")) {
+      setVoteError("You must be logged in to vote.");
       return;
     }
 
-    if (UserDownVotes.has(article.article_id)) {
-      UserDownVotes.delete(article.article_id);
-      localStorage.setItem("ArticleDownVotes", JSON.stringify([...UserDownVotes]));
+    let increment = 1;
+
+    if (userUpVotes.has(article.article_id)) {
+      increment = -1;
+      userUpVotes.delete(article.article_id);
+      localStorage.setItem("ArticleUpVotes", JSON.stringify([...userUpVotes]));
+    }
+
+    if (userDownVotes.has(article.article_id)) {
+      userDownVotes.delete(article.article_id);
+      localStorage.setItem("ArticleDownVotes", JSON.stringify([...userDownVotes]));
       increment++;
     }
 
-    localStorage.setItem("ArticleUpVotes", JSON.stringify([...UserUpVotes, article.article_id]));
+    localStorage.setItem("ArticleUpVotes", JSON.stringify([...userUpVotes, article.article_id]));
+    setUserUpVotes(userUpVotes.add(article.article_id))
 
     const updatedArticle = {
       ...article,
@@ -94,30 +95,26 @@ export const Article = () => {
 
   const handleDecrementVote = async () => {
 
+    if (!localStorage.getItem("token")) {
+      setVoteError("You must be logged in to vote.");
+      return;
+    }
+
     let decrement = -1;
-    let UserDownVotes = new Set();
-    let UserUpVotes = new Set();
 
-    if (localStorage.getItem("ArticleDownVotes")) {
-      UserDownVotes = new Set(JSON.parse(localStorage.getItem("ArticleDownVotes")));
-    }
-
-    if (localStorage.getItem("ArticleUpVotes")) {
-      UserUpVotes = new Set(JSON.parse(localStorage.getItem("ArticleUpVotes")));
-    }
-
-    if (UserDownVotes.has(article.article_id)) {
+    if (userDownVotes.has(article.article_id)) {
       setVoteError("You have already downvoted this article.");
       return;
     }
 
-    if (UserUpVotes.has(article.article_id)) {
-      UserUpVotes.delete(article.article_id);
-      localStorage.setItem("ArticleUpVotes", JSON.stringify([...UserUpVotes]));
+    if (userUpVotes.has(article.article_id)) {
+      userUpVotes.delete(article.article_id);
+      localStorage.setItem("ArticleUpVotes", JSON.stringify([...userUpVotes]));
       decrement--;
     }
 
-    localStorage.setItem("ArticleDownVotes", JSON.stringify([...UserDownVotes, article.article_id]));
+    localStorage.setItem("ArticleDownVotes", JSON.stringify([...userDownVotes, article.article_id]));
+    setUserDownVotes(userDownVotes.add(article.article_id))
 
     const updatedArticle = {
       ...article,
@@ -172,14 +169,22 @@ export const Article = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 Votes: {article.votes}
-                <Button variant="outline-dark buttons" onClick={handleIncrementVote}
-                        onMouseLeave={() => setVoteError("")}>
-                  +
-                </Button>
+                {userUpVotes.has(article.article_id) ?
+                  <Button variant="dark buttons" onClick={handleIncrementVote}
+                          onMouseLeave={() => setVoteError("")}>
+                    +
+                  </Button> : <Button variant="outline-dark buttons" onClick={handleIncrementVote}
+                                      onMouseLeave={() => setVoteError("")}>
+                    +
+                  </Button>}
 
-                <Button variant="outline-dark" onClick={handleDecrementVote} onMouseLeave={() => setVoteError("")}>
-                  -
-                </Button>
+                {userDownVotes.has(article.article_id) ?
+                  <Button variant="dark buttons" onClick={handleDecrementVote} onMouseLeave={() => setVoteError("")}>
+                    -
+                  </Button> : <Button variant="outline-dark buttons" onClick={handleDecrementVote}
+                                      onMouseLeave={() => setVoteError("")}>
+                    -
+                  </Button>}
                 {voteError && <p className="error">{voteError}</p>}
               </ListGroup.Item>
             </ListGroup>
