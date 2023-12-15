@@ -9,6 +9,7 @@ import {CreateNewComment} from "./CreateNewComment.jsx";
 import {NotFoundPage} from "./NotFound.jsx";
 import {DeleteArticle} from "./DeleteArticle.jsx";
 import {EditArticleBody} from "./EditArticleBody.jsx";
+import {Paginate} from "./Pagination.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -18,8 +19,12 @@ export const Article = () => {
   const [expandNewComment, setExpandNewComment] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
 
+  const [totalComments, setTotalComments] = useState(0);
+  const [page, setPage] = useState(1);
+
   const [userUpVotes, setUserUpVotes] = useState(new Set(JSON.parse(localStorage.getItem("ArticleUpVotes"))) || new Set());
   const [userDownVotes, setUserDownVotes] = useState(new Set(JSON.parse(localStorage.getItem("ArticleDownVotes"))) || new Set());
+  const [loadComments, setLoadComments] = useState(false);
 
   let {id} = useParams();
 
@@ -42,14 +47,20 @@ export const Article = () => {
     fetchArticle();
   }, [article]);
 
-  const loadComments = async () => {
-    try {
-      const comments = await getComments(id);
-      setComments(comments);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const loadComments = async () => {
+      try {
+        console.log(page)
+        const data = await getComments(id, page);
+        setTotalComments(data.total_count)
+        setComments(data.comments);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadComments();
+  }, [page]);
 
   const handleIncrementVote = async () => {
 
@@ -203,10 +214,7 @@ export const Article = () => {
                 To create a new article in this topic
               </div>}
             <Card.Body>
-              <Button variant="outline-dark" onClick={loadComments}>
-                Comments ({article.comment_count})
-              </Button>
-
+              Comments ({article.comment_count})
               {localStorage.getItem("username") ?
                 <Button variant="outline-dark buttons" onClick={handleExpand}>Add Comment</Button> :
                 <div>
@@ -223,6 +231,7 @@ export const Article = () => {
           </Card>
           : <NotFoundPage/>}
       {comments && <Comments comments={comments} setComments={setComments}/>}
+      {totalComments > 10 && <Paginate page={page} setPage={setPage} totalItems={totalComments}/>}
     </div>
   );
 };

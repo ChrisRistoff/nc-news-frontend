@@ -3,6 +3,7 @@ import {Button, Card, Col, Form, ListGroup, Row} from "react-bootstrap";
 import {getArticles} from "../utils/getArticles.js";
 import {Link} from "react-router-dom";
 import {NotFoundPage} from "./NotFound.jsx";
+import {Paginate} from "./Pagination.jsx";
 
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
@@ -20,8 +21,6 @@ export const ListArticles = ({query}) => {
     const fetchArticles = async (queryString) => {
 
       try {
-
-
         let data = await getArticles(queryString + `&p=${page}`);
         setTotalArticles(data.total_count);
         setArticles(data.articles);
@@ -120,15 +119,7 @@ export const ListArticles = ({query}) => {
               );
             })}
           </Row>
-          <div>
-            <Button variant="outline-dark buttons" onClick={() => setPage(page - 1)}
-                    disabled={page === 1}>{"<"} Previous
-              Page
-              ({page - 1})</Button>
-            <p>Page {page} of {Math.ceil(totalArticles / 10)}</p>
-            <Button variant="outline-dark buttons" onClick={() => setPage(page + 1)}
-                    disabled={totalArticles <= page * 10}>Next Page ({page + 1}) {">"}</Button>
-          </div>
+          {totalArticles > 10 && <Paginate page={page} setPage={setPage} totalItems={totalArticles}/>}
         </div>
       )
   );
