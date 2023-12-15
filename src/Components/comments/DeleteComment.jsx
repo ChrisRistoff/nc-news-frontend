@@ -2,7 +2,7 @@ import {Button, Modal} from "react-bootstrap";
 import {useState} from "react";
 import {deleteComment} from "../../utils/deleteComment.js";
 
-export const DeleteComment = ({comment_id, comments, setComments}) => {
+export const DeleteComment = ({comment_id, comments, setComments, totalComments, setTotalComments}) => {
   const [commentError, setCommentError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +16,7 @@ export const DeleteComment = ({comment_id, comments, setComments}) => {
       await deleteComment(comment_id);
       setLoading(false);
       setCommentError("");
+      setTotalComments(totalComments - 1);
 
       setShowModal(false)
     } catch (error) {

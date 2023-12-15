@@ -44,7 +44,7 @@ export const Article = () => {
     }
 
     fetchArticle();
-  }, []);
+  }, [comments]);
 
   useEffect(() => {
     const loadComments = async () => {
@@ -59,7 +59,7 @@ export const Article = () => {
     };
 
     loadComments();
-  }, [page]);
+  }, [page, totalComments]);
 
   const handleIncrementVote = async () => {
 
@@ -229,7 +229,8 @@ export const Article = () => {
             </Card.Body>
           </Card>
           : <NotFoundPage/>}
-      {comments && <Comments comments={comments} setComments={setComments}/>}
+      {comments && <Comments comments={comments} setComments={setComments} totalComments={totalComments}
+                             setTotalComments={setTotalComments}/>}
       {totalComments > 10 && <Paginate page={page} setPage={setPage} totalItems={totalComments}/>}
     </div>
   );

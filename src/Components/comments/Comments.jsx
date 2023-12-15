@@ -4,7 +4,7 @@ import {EditCommentBody} from "./EditCommentBody.jsx";
 import {commentDownVote, commentUpVote} from "../../utils/handleCommentVotes.js";
 import {DeleteComment} from "./DeleteComment.jsx";
 
-export const Comments = ({comments, setComments}) => {
+export const Comments = ({comments, setComments, totalComments, setTotalComments}) => {
 
   const [voteError, setVoteError] = useState(null);
   const [editToggle, setEditToggle] = useState(false);
@@ -128,7 +128,8 @@ export const Comments = ({comments, setComments}) => {
                       <Card.Text>{comment.body}</Card.Text>
                       <Button className={"buttons"} variant={"outline-dark"} onClick={() => handleEditToggle()}>Edit
                         comment</Button>
-                      <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments}/>
+                      <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments}
+                                     totalComments={totalComments} setTotalComments={setTotalComments}/>
                     </div>
                     : editToggle ?
                       <EditCommentBody comment_id={comment.comment_id} comments={comments} setComments={setComments}
