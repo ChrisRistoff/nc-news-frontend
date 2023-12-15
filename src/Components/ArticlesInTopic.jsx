@@ -29,7 +29,7 @@ export const ArticlesInTopic = () => {
           <Link to={`/signup`} className={"btn btn-outline-dark buttons"}>Register</Link>
           <p>To create a new article in this topic</p>
         </div>}
-      <ListArticles query={`topic=${topic}`}/>
+      <ListArticles query={`&topic=${topic}`}/>
     </div>
   );
 };

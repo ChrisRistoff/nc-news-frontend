@@ -7,9 +7,10 @@ import {NotFoundPage} from "./NotFound.jsx";
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
   const [totalArticles, setTotalArticles] = useState(0);
+
   const [isLoading, setIsLoading] = useState(true);
   const [queryString, setQueryString] = useState(query);
-  const [paginationQuery, setPaginationQuery] = useState(queryString);
+  const [page, setPage] = useState(1);
 
   const [queried, setQueried] = useState(false);
   const [order, setOrder] = useState("");
@@ -19,8 +20,9 @@ export const ListArticles = ({query}) => {
     const fetchArticles = async (queryString) => {
 
       try {
-        let data = await getArticles(queryString);
-        setPaginationQuery(queryString);
+
+
+        let data = await getArticles(queryString + `&p=${page}`);
         setTotalArticles(data.total_count);
         setArticles(data.articles);
       } catch (error) {
@@ -31,7 +33,7 @@ export const ListArticles = ({query}) => {
 
     fetchArticles(queryString);
     setQueryString(query)
-  }, [queried]);
+  }, [queried, page]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -90,7 +92,6 @@ export const ListArticles = ({query}) => {
           </Form>
           <h1>Articles</h1>
 
-
           <Row xs={1} md={2} lg={3} className="g-4">
             {articles.map((article, index) => {
               const formattedDate = new Date(article.created_at).toLocaleString();
@@ -119,6 +120,15 @@ export const ListArticles = ({query}) => {
               );
             })}
           </Row>
+          <div>
+            <Button variant="outline-dark buttons" onClick={() => setPage(page - 1)}
+                    disabled={page === 1}>{"<"} Previous
+              Page
+              ({page - 1})</Button>
+            <p>Page {page} of {Math.ceil(totalArticles / 10)}</p>
+            <Button variant="outline-dark buttons" onClick={() => setPage(page + 1)}
+                    disabled={totalArticles <= page * 10}>Next Page ({page + 1}) {">"}</Button>
+          </div>
         </div>
       )
   );
