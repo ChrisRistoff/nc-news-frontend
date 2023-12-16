@@ -1,12 +1,12 @@
 import {useNavigate} from "react-router-dom";
 
-export const User = ({username}) => {
+export const Topic = ({slug}) => {
 
   const navigate = useNavigate();
 
   const handleClick = (event) => {
     event.preventDefault();
-    navigate(`/users/${username}`)
+    navigate(`/topics/${slug}`)
   }
 
   return (
@@ -14,9 +14,10 @@ export const User = ({username}) => {
       <button type="button" className="btn btn-outline-dark me-2" data-bs-toggle="tooltip"
               data-bs-placement="top"
               title="Click to view user profile" onClick={handleClick}>
-        <i className={"bi bi-person-circle"}></i>
+        <i className={"bi bi-chat-dots-fill"}></i>
       </button>
-      <h5 className={"mb-0"}>{username}</h5>
+      <h5 className={"mb-0"}>{slug}</h5>
     </div>
   )
+
 }

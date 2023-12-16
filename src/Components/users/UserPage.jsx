@@ -45,7 +45,6 @@ export const UserPage = () => {
 
         setUserArticles(data.articles);
         setTotalArticles(data.total_count);
-        console.log(data.articles);
       } catch (error) {
         setError(true);
       }
@@ -131,7 +130,7 @@ export const UserPage = () => {
                   }
                 >
                   <div>
-                    <p>Comment: {comment.body.substring(1, 40)}...</p>
+                    <p>Comment: {comment.body.substring(0, 40)}...</p>
                     <Link className={"btn btn-outline-dark"} to={`/articles/${comment.article_id}`}>View
                       Article</Link>
                   </div>

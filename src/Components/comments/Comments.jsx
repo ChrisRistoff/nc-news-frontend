@@ -1,7 +1,7 @@
 import {Button, Card, ListGroup} from "react-bootstrap";
 import {useState} from "react";
 import {EditCommentBody} from "./EditCommentBody.jsx";
-import {commentDownVote, commentUpVote} from "../../utils/handleCommentVotes.js";
+import {commentDownVote, commentUpVote} from "../../utils/updateCommentVotes.js";
 import {DeleteComment} from "./DeleteComment.jsx";
 import {User} from "../users/User.jsx";
 

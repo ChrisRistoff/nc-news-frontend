@@ -11,7 +11,9 @@ import {ArticlesInTopic} from "./Components/topics/ArticlesInTopic.jsx";
 import {CreateArticle} from "./Components/article/CreateArticle.jsx";
 import {NotFoundPage} from "./Components/NotFound.jsx";
 import {Footer} from "./Components/Footer.jsx";
-import { UserPage } from './Components/users/UserPage';
+import {UserPage} from './Components/users/UserPage';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import {ScrollToTop} from "./Components/ScrollToTop.jsx";
 
 function App() {
 
@@ -20,6 +22,7 @@ function App() {
       <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
         <main style={{flex: 1}}>
           <Header/>
+          <ScrollToTop/>
           <Routes>
             <Route path={"/login"} element={<LogIn/>}/>
             <Route path={"/signup"} element={<Register/>}/>
@@ -28,7 +31,7 @@ function App() {
             <Route path={"/articles"} element={<ListArticles/>}/>
             <Route path={"/topics/:topic"} element={<ArticlesInTopic/>}/>
             <Route path={"/:topic/articles/new"} element={<CreateArticle/>}/>
-            <Route path={"/users/:username"} element={<UserPage />}/>
+            <Route path={"/users/:username"} element={<UserPage/>}/>
             <Route path={"*"} element={<NotFoundPage/>}/>
           </Routes>
         </main>

@@ -3,7 +3,7 @@ import {Link, useParams} from "react-router-dom";
 import {Button, Card, ListGroup} from "react-bootstrap";
 import {getArticleById} from "../../utils/getArticleById.js";
 import {getComments} from "../../utils/getComments.js";
-import {decrementVotes, incrementVotes} from "../../utils/handleArticleVotes.js";
+import {decrementVotes, incrementVotes} from "../../utils/updateArticleVotes.js";
 import {DeleteArticle} from "./DeleteArticle.jsx";
 import {EditArticleBody} from "./EditArticleBody.jsx";
 import {CreateNewComment} from "../comments/CreateNewComment.jsx";
@@ -11,6 +11,7 @@ import {NotFoundPage} from "../NotFound.jsx";
 import {Comments} from "../comments/Comments.jsx";
 import {Paginate} from "../Pagination.jsx";
 import {User} from "../users/User.jsx";
+import {Topic} from "../topics/TopicInfoButton.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -19,6 +20,7 @@ export const Article = () => {
   const [voteError, setVoteError] = useState("");
   const [expandNewComment, setExpandNewComment] = useState(false);
   const [editToggle, setEditToggle] = useState(false);
+  const [loadingComments, setLoadingComments] = useState(false);
 
   const [totalComments, setTotalComments] = useState(0);
   const [page, setPage] = useState(1);
@@ -50,12 +52,14 @@ export const Article = () => {
   useEffect(() => {
     const loadComments = async () => {
       try {
-        console.log(page)
+        setLoadingComments(true);
         const data = await getComments(id, page);
         setTotalComments(data.total_count)
         setComments(data.comments);
       } catch (error) {
-        console.log(error);
+        // nothing yet
+      } finally {
+        setLoadingComments(false);
       }
     };
 
@@ -179,7 +183,7 @@ export const Article = () => {
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroup.Item>Author: <User username={article.author}/> </ListGroup.Item>
-              <ListGroup.Item>Topic: {article.topic}</ListGroup.Item>
+              <ListGroup.Item>Topic: <Topic slug={article.topic}/> </ListGroup.Item>
               <ListGroup.Item>
                 Created: {new Date(article.created_at).toLocaleDateString()}
               </ListGroup.Item>
@@ -230,8 +234,9 @@ export const Article = () => {
             </Card.Body>
           </Card>
           : <NotFoundPage/>}
-      {comments && <Comments comments={comments} setComments={setComments} totalComments={totalComments}
-                             setTotalComments={setTotalComments}/>}
+      {isLoading || !comments ? <h1>Loading...</h1> :
+        <Comments comments={comments} setComments={setComments} totalComments={totalComments}
+                  setTotalComments={setTotalComments}/>}
       {totalComments > 10 && <Paginate page={page} setPage={setPage} totalItems={totalComments}/>}
     </div>
   );
