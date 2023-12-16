@@ -11,23 +11,29 @@ import {ArticlesInTopic} from "./Components/topics/ArticlesInTopic.jsx";
 import {CreateArticle} from "./Components/article/CreateArticle.jsx";
 import {NotFoundPage} from "./Components/NotFound.jsx";
 import {User} from "./Components/users/User.jsx";
+import {Footer} from "./Components/Footer.jsx";
 
 function App() {
 
   return (
     <>
-      <Header/>
-      <Routes>
-        <Route path={"/login"} element={<LogIn/>}/>
-        <Route path={"/signup"} element={<Register/>}/>
-        <Route path={"/"} element={<Topics/>}/>
-        <Route path={"/articles/:id"} element={<Article/>}/>
-        <Route path={"/articles"} element={<ListArticles/>}/>
-        <Route path={"/topics/:topic"} element={<ArticlesInTopic/>}/>
-        <Route path={"/:topic/articles/new"} element={<CreateArticle/>}/>
-        <Route path={"/users/:username"} element={<User/>}/>
-        <Route path={"*"} element={<NotFoundPage/>}/>
-      </Routes>
+      <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+        <main style={{flex: 1}}>
+          <Header/>
+          <Routes>
+            <Route path={"/login"} element={<LogIn/>}/>
+            <Route path={"/signup"} element={<Register/>}/>
+            <Route path={"/"} element={<Topics/>}/>
+            <Route path={"/articles/:id"} element={<Article/>}/>
+            <Route path={"/articles"} element={<ListArticles/>}/>
+            <Route path={"/topics/:topic"} element={<ArticlesInTopic/>}/>
+            <Route path={"/:topic/articles/new"} element={<CreateArticle/>}/>
+            <Route path={"/users/:username"} element={<User/>}/>
+            <Route path={"*"} element={<NotFoundPage/>}/>
+          </Routes>
+        </main>
+        <Footer/>
+      </div>
     </>
   )
 }
