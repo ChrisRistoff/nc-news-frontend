@@ -10,6 +10,7 @@ import {CreateNewComment} from "../comments/CreateNewComment.jsx";
 import {NotFoundPage} from "../NotFound.jsx";
 import {Comments} from "../comments/Comments.jsx";
 import {Paginate} from "../Pagination.jsx";
+import {User} from "../users/User.jsx";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -177,7 +178,7 @@ export const Article = () => {
 
             </Card.Body>
             <ListGroup className="list-group-flush">
-              <ListGroup.Item>Author: {article.author}</ListGroup.Item>
+              <ListGroup.Item>Author: <User username={article.author}/> </ListGroup.Item>
               <ListGroup.Item>Topic: {article.topic}</ListGroup.Item>
               <ListGroup.Item>
                 Created: {new Date(article.created_at).toLocaleDateString()}

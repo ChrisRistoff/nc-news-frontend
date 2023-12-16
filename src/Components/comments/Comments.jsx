@@ -3,6 +3,7 @@ import {useState} from "react";
 import {EditCommentBody} from "./EditCommentBody.jsx";
 import {commentDownVote, commentUpVote} from "../../utils/handleCommentVotes.js";
 import {DeleteComment} from "./DeleteComment.jsx";
+import {User} from "../users/User.jsx";
 
 export const Comments = ({comments, setComments, totalComments, setTotalComments}) => {
 
@@ -122,7 +123,7 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
             <div key={comment.id || index} className="col-12 col-md-11">
               <Card className="mb-3">
                 <Card.Body>
-                  <Card.Title>{comment.author}</Card.Title>
+                  <Card.Title><User username={comment.author}/> </Card.Title>
                   {!editToggle && localStorage.getItem("username") === comment.author ?
                     <div>
                       <Card.Text>{comment.body}</Card.Text>

@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {Button, Card, Col, Form, ListGroup, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {getArticles} from "../../utils/getArticles.js";
 import {NotFoundPage} from "../NotFound.jsx";
 import {Paginate} from "../Pagination.jsx";
+import {User} from "../users/User.jsx";
 
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
@@ -16,6 +17,8 @@ export const ListArticles = ({query}) => {
   const [queried, setQueried] = useState(false);
   const [order, setOrder] = useState("");
   const [orderBy, setOrderBy] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArticles = async (queryString) => {
@@ -46,6 +49,11 @@ export const ListArticles = ({query}) => {
 
   const handleSelectOrderBy = (event) => {
     setOrderBy(event.target.value)
+  }
+
+  const clickImage = (event, article_id) => {
+    event.preventDefault();
+    navigate(`/articles/${article_id}`)
   }
 
   return (
@@ -97,13 +105,14 @@ export const ListArticles = ({query}) => {
               return (
                 <Col key={article.id || index}>
                   <Card>
-                    <Card.Img variant="top" src={article.article_img_url}
+                    <Card.Img onClick={(e) => clickImage(e, article.article_id)} variant="top"
+                              src={article.article_img_url}
                               style={{width: '100%', height: '200px', objectFit: 'cover'}}/>
                     <Card.Body>
                       <Card.Title>{article.title}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>Author: {article.author}</ListGroup.Item>
+                      <ListGroup.Item>Author: <User username={article.author}/> </ListGroup.Item>
                       <ListGroup.Item>Topic: {article.topic}</ListGroup.Item>
                       <ListGroup.Item>Created: {formattedDate}</ListGroup.Item>
                       <ListGroup.Item>Votes: {article.votes}</ListGroup.Item>
