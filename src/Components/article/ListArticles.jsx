@@ -5,6 +5,7 @@ import {getArticles} from "../../utils/getArticles.js";
 import {NotFoundPage} from "../NotFound.jsx";
 import {Paginate} from "../Pagination.jsx";
 import {User} from "../users/User.jsx";
+import {formatDate} from "../../utils/formatDate.js";
 
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
@@ -101,7 +102,7 @@ export const ListArticles = ({query}) => {
 
           <Row xs={1} md={2} lg={3} className="g-4">
             {articles.map((article, index) => {
-              const formattedDate = new Date(article.created_at).toLocaleString();
+              const formattedDate = formatDate(article.created_at);
               return (
                 <Col key={article.id || index}>
                   <Card>

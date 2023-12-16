@@ -4,6 +4,7 @@ import {EditCommentBody} from "./EditCommentBody.jsx";
 import {commentDownVote, commentUpVote} from "../../utils/updateCommentVotes.js";
 import {DeleteComment} from "./DeleteComment.jsx";
 import {User} from "../users/User.jsx";
+import {formatDate} from "../../utils/formatDate.js";
 
 export const Comments = ({comments, setComments, totalComments, setTotalComments}) => {
 
@@ -118,7 +119,7 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
       <h1 className="text-center">Comments</h1>
       <div className="row justify-content-center">
         {comments.map((comment, index) => {
-          const formattedDate = new Date(comment.created_at).toLocaleString();
+          const formattedDate = formatDate(comment.created_at);
           return (
             <div key={comment.id || index} className="col-12 col-md-11">
               <Card className="mb-3">

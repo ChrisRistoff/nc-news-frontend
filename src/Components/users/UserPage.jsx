@@ -6,6 +6,7 @@ import {getUserArticles} from "../../utils/getUserArticles.jsx";
 import {getUserComments} from "../../utils/getUserComments.js";
 import {Paginate} from "../Pagination.jsx";
 import {getUser} from "../../utils/getUser.jsx";
+import {formatDate} from "../../utils/formatDate.js";
 
 export const UserPage = () => {
   const {username} = useParams();
@@ -90,12 +91,12 @@ export const UserPage = () => {
                     <Tooltip id={`tooltip-${article.article_id}`}>
                       <h5>Topic:</h5>
                       <p>{article.topic}</p>
-                      <h5>Posted on:</h5>
-                      <p>{article.created_at.toString().substring(0, 10)}</p>
-                      <h5>Comments:</h5>
-                      <p>{article.comment_count}</p>
+                      <h5>Content:</h5>
+                      <p>{article.body.substring(0, 100)}...</p>
                       <h5>Votes:</h5>
                       <p>{article.votes}</p>
+                      <h5>Posted on:</h5>
+                      <p>{formatDate(article.created_at)}</p>
                     </Tooltip>
                   }
                 >
@@ -125,7 +126,7 @@ export const UserPage = () => {
                       <p>{comment.article_title}</p>
                       <h5>Comment:</h5>
                       <p>{comment.body}</p>
-                      <p><b>Posted on:</b> {comment.created_at.toString().substring(0, 10)}</p>
+                      <p><b>Posted on:</b> <br/> {formatDate(comment.created_at)}</p>
                     </Tooltip>
                   }
                 >

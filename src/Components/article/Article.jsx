@@ -12,6 +12,7 @@ import {Comments} from "../comments/Comments.jsx";
 import {Paginate} from "../Pagination.jsx";
 import {User} from "../users/User.jsx";
 import {Topic} from "../topics/TopicInfoButton.jsx";
+import {formatDate} from "../../utils/formatDate.js";
 
 export const Article = () => {
   const [article, setArticle] = useState({});
@@ -185,7 +186,7 @@ export const Article = () => {
               <ListGroup.Item>Author: <User username={article.author}/> </ListGroup.Item>
               <ListGroup.Item>Topic: <Topic slug={article.topic}/> </ListGroup.Item>
               <ListGroup.Item>
-                Created: {new Date(article.created_at).toLocaleDateString()}
+                Created: {formatDate(article.created_at)}
               </ListGroup.Item>
               <ListGroup.Item>
                 Votes: {article.votes}
