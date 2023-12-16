@@ -10,6 +10,7 @@ import {ListArticles} from "./Components/article/ListArticles.jsx";
 import {ArticlesInTopic} from "./Components/topics/ArticlesInTopic.jsx";
 import {CreateArticle} from "./Components/article/CreateArticle.jsx";
 import {NotFoundPage} from "./Components/NotFound.jsx";
+import {User} from "./Components/users/User.jsx";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path={"/articles"} element={<ListArticles/>}/>
         <Route path={"/topics/:topic"} element={<ArticlesInTopic/>}/>
         <Route path={"/:topic/articles/new"} element={<CreateArticle/>}/>
+        <Route path={"/users/:username"} element={<User/>}/>
         <Route path={"*"} element={<NotFoundPage/>}/>
       </Routes>
     </>
