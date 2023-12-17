@@ -7,17 +7,20 @@ import {Paginate} from "../Pagination.jsx";
 import {User} from "../users/User.jsx";
 import {formatDate} from "../../utils/formatDate.js";
 
+
 export const ListArticles = ({query}) => {
   const [articles, setArticles] = useState([]);
   const [totalArticles, setTotalArticles] = useState(0);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [queryString, setQueryString] = useState(query);
+  const [queryString, setQueryString] = useState(query || "");
   const [page, setPage] = useState(1);
 
   const [queried, setQueried] = useState(false);
   const [order, setOrder] = useState("");
   const [orderBy, setOrderBy] = useState("");
+
+  const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,6 +31,7 @@ export const ListArticles = ({query}) => {
         let data = await getArticles(queryString + `&p=${page}`);
         setTotalArticles(data.total_count);
         setArticles(data.articles);
+        setQueryString("")
       } catch (error) {
       } finally {
         setIsLoading(false);
@@ -40,15 +44,17 @@ export const ListArticles = ({query}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setQueryString(queryString + order + orderBy)
+    setQueryString(queryString + order + orderBy + `&search=${search}`)
     setQueried(!queried)
   }
 
   const handleSelectOrder = (event) => {
+    event.preventDefault()
     setOrder(event.target.value)
   }
 
   const handleSelectOrderBy = (event) => {
+    event.preventDefault()
     setOrderBy(event.target.value)
   }
 
@@ -61,12 +67,21 @@ export const ListArticles = ({query}) => {
     isLoading ? (
         <h1>Loading...</h1>
       ) :
-      articles.length === 0 ? (
+      !articles ? (
         <NotFoundPage/>
       ) : (
         <div>
-          <h3>Sort articles</h3>
+          <h3>Sort and search</h3>
           <Form onSubmit={handleSubmit}>
+            <Form.Control
+              type="text"
+              placeholder="Search by anything..."
+              value={search}
+              onChange={(event) => {
+                event.preventDefault()
+                setSearch(event.target.value)
+              }}
+            />
             <Form.Select aria-label="Default select" onChange={handleSelectOrder}>
               <option>Order to sort in</option>
               <option value="&order=asc">
@@ -96,7 +111,7 @@ export const ListArticles = ({query}) => {
               </option>
             </Form.Select>
 
-            <Button variant="outline-dark buttons" type="submit">Click To Sort</Button>
+            <Button variant="outline-dark buttons" type="submit">Click To Search</Button>
           </Form>
           <h1>Articles</h1>
 

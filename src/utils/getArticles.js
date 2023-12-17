@@ -1,6 +1,6 @@
 import {api} from "./axiosCrete";
 
-export const getArticles = async (query) => {
+export const getArticles = async (query, search) => {
   try {
     let url = "/articles";
 
@@ -8,7 +8,7 @@ export const getArticles = async (query) => {
       url += "?" + query;
     }
 
-    const response = await api.get(url);
+    const response = await api.get(url)
 
     return response.data;
   } catch (e) {
