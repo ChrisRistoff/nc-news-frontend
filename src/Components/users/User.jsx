@@ -10,13 +10,12 @@ export const User = ({username}) => {
   }
 
   return (
-    <div className={"d-flex align-items-center justify-content-center"}>
-      <button type="button" className="btn btn-outline-dark me-2" data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Click to view user profile" onClick={handleClick}>
-        <i className={"bi bi-person-circle"}></i>
+    <div className="d-flex align-items-center justify-content-center">
+      <button type="button" className="btn btn-outline-dark me-2 d-flex align-items-center" onClick={handleClick}
+              data-bs-toggle="tooltip" data-bs-placement="top" title="Click to view user profile">
+        <i className="bi bi-person-circle"></i>
       </button>
-      <h5 className={"mb-0"}>{username}</h5>
+      <h5 className="mb-0" style={{cursor: 'pointer'}} onClick={handleClick}>{username}</h5>
     </div>
-  )
+  );
 }

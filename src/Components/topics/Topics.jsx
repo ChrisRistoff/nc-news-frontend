@@ -47,7 +47,7 @@ export const Topics = () => {
             <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Search by anything..."
+                placeholder="Search articles by anything..."
                 value={search}
                 onChange={(event) => {
                   event.preventDefault()
