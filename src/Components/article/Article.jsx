@@ -201,18 +201,18 @@ export const Article = () => {
                 {userUpVotes.has(article.article_id) ?
                   <Button variant="dark buttons" onClick={handleIncrementVote}
                           onMouseLeave={() => setVoteError("")}>
-                    +
+                    <i className="bi bi-hand-thumbs-up"/>
                   </Button> : <Button variant="outline-dark buttons" onClick={handleIncrementVote}
                                       onMouseLeave={() => setVoteError("")}>
-                    +
+                    <i className="bi bi-hand-thumbs-up"/>
                   </Button>}
 
                 {userDownVotes.has(article.article_id) ?
                   <Button variant="dark buttons" onClick={handleDecrementVote} onMouseLeave={() => setVoteError("")}>
-                    -
+                    <i className="bi bi-hand-thumbs-down"/>
                   </Button> : <Button variant="outline-dark buttons" onClick={handleDecrementVote}
                                       onMouseLeave={() => setVoteError("")}>
-                    -
+                    <i className="bi bi-hand-thumbs-down"/>
                   </Button>}
                 {voteError && <p className="error">{voteError}</p>}
               </ListGroup.Item>

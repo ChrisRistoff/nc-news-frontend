@@ -148,13 +148,13 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
                         onClick={() => handleIncrementVote(comment.comment_id)}
                         onMouseLeave={() => setVoteError("")}
                       >
-                        +
+                        <i className="bi bi-hand-thumbs-up"/>
                       </Button> :
                       <Button variant="outline-dark buttons"
                               onClick={() => handleIncrementVote(comment.comment_id)}
                               onMouseLeave={() => setVoteError("")}
                       >
-                        +
+                        <i className="bi bi-hand-thumbs-up"/>
                       </Button>}
 
                     {userDownVotes.has(comment.comment_id) ?
@@ -162,13 +162,13 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
                               onClick={() => handleDecrementVote(comment.comment_id)}
                               onMouseLeave={() => setVoteError("")}
                       >
-                        -
+                        <i className="bi bi-hand-thumbs-down"/>
                       </Button> :
                       <Button variant="outline-dark buttons"
                               onClick={() => handleDecrementVote(comment.comment_id)}
                               onMouseLeave={() => setVoteError("")}
                       >
-                        -
+                        <i className="bi bi-hand-thumbs-down"/>
                       </Button>}
                     {voteError && voteError.comment_id === comment.comment_id && (
                       <p className="text-danger">{voteError.message}</p>

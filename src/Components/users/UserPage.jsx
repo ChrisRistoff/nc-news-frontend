@@ -96,7 +96,7 @@ export const UserPage = () => {
               <p>Name: {user.name}</p>
               <img src={user.avatar_url} alt={user.username} width={"100px"}/>
             </div>}
-          <h5 className={"text-bg-dark"}>Hover or press on comment or article text for more info</h5>
+          <h5 className={"text-bg-dark buttons"}>Hover or press on comment or article text for more info</h5>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={{flex: 1, marginRight: '10px'}}>
               <h3>Articles</h3>
