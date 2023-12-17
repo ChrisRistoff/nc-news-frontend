@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, Row, Spinner} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {getTopics} from "../../utils/getTopics.js";
 import {ListArticles} from "../article/ListArticles.jsx";
@@ -61,10 +61,18 @@ export const Topics = () => {
         : <ListArticles query={`search=${search}`}/>}
 
       <h1>Topics</h1>
-      {isLoading ? <div>
-          <h1>Just a Moment...</h1>
-          <p>The server is waking up! This might take about a minute. I appreciate your patience.</p>
-        </div> :
+      {isLoading ? <div className="d-flex justify-content-center align-items-center">
+          <Card className="text-center p-4">
+            <Card.Body>
+              <Spinner animation="border" variant="primary" className="mb-3"/>
+              <Card.Title>Just a Moment...</Card.Title>
+              <Card.Text>
+                The server is waking up! This might take up to a minute on the first start. Your patience is appreciated.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+        :
         <Row xs={1} md={2} lg={3} className="g-4">
 
           {topics.map((topic, index) => {

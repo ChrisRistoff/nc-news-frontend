@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Button, Card, Col, Form, ListGroup, Row} from "react-bootstrap";
+import {Button, Card, Col, Form, ListGroup, Row, Spinner} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import {getArticles} from "../../utils/getArticles.js";
 import {NotFoundPage} from "../NotFound.jsx";
@@ -65,7 +65,14 @@ export const ListArticles = ({query}) => {
 
   return (
     isLoading ? (
-        <h1>Loading...</h1>
+        <div className="d-flex justify-content-center align-items-center">
+          <Card className="text-center p-4">
+            <Card.Body>
+              <Spinner animation="border" variant="primary" className="mb-3"/>
+              <Card.Title>Loading articles...</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
       ) :
       !articles ? (
         <NotFoundPage/>

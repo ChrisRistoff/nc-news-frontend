@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import {Button, Card, ListGroup} from "react-bootstrap";
+import {Button, Card, ListGroup, Spinner} from "react-bootstrap";
 import {getArticleById} from "../../utils/getArticleById.js";
 import {getComments} from "../../utils/getComments.js";
 import {decrementVotes, incrementVotes} from "../../utils/updateArticleVotes.js";
@@ -164,7 +164,15 @@ export const Article = () => {
 
   return (
     <div>
-      {isLoading ? <h1>Loading article...</h1> :
+      {isLoading ? <div className="d-flex justify-content-center align-items-center buttons">
+          <Card className="text-center p-4">
+            <Card.Body>
+              <Spinner animation="border" variant="primary" className="mb-3"/>
+              <Card.Title>Article is loading...</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+        :
         article.title ?
           <Card className="mb-3 article" style={{width: "100%"}}>
             <Card.Body>
@@ -235,7 +243,15 @@ export const Article = () => {
             </Card.Body>
           </Card>
           : <NotFoundPage/>}
-      {isLoading || !comments ? <h1>Loading comments...</h1> :
+      {isLoading || !comments ? <div className="d-flex justify-content-center align-items-center buttons">
+          <Card className="text-center p-4">
+            <Card.Body>
+              <Spinner animation="border" variant="primary" className="mb-3"/>
+              <Card.Title>Comments are loading...</Card.Title>
+            </Card.Body>
+          </Card>
+        </div>
+        :
         <Comments comments={comments} setComments={setComments} totalComments={totalComments}
                   setTotalComments={setTotalComments}/>}
       {totalComments > 10 && <Paginate page={page} setPage={setPage} totalItems={totalComments}/>}

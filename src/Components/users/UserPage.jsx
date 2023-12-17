@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {NotFoundPage} from "../NotFound.jsx";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Card, OverlayTrigger, Spinner, Tooltip} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {getUserArticles} from "../../utils/getUserArticles.jsx";
 import {getUserComments} from "../../utils/getUserComments.js";
@@ -13,22 +13,25 @@ export const UserPage = () => {
   const [userArticles, setUserArticles] = useState([]);
   const [userComments, setUserComments] = useState([]);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [totalArticles, setTotalArticles] = useState(0);
   const [totalComments, setTotalComments] = useState(0);
   const [articlesPage, setArticlesPage] = useState(1);
   const [commentsPage, setCommentsPage] = useState(1);
   const [user, setUser] = useState({});
 
+  const [loadingArticles, setLoadingArticles] = useState(false);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(false);
+
   useEffect(() => {
     const getuserData = async () => {
       try {
-        setLoading(true);
+        setLoadingUser(true);
 
         const user = await getUser(username);
 
         setUser(user.user);
-        setLoading(false);
+        setLoadingUser(false);
 
       } catch (error) {
         setError(true);
@@ -40,12 +43,14 @@ export const UserPage = () => {
   useEffect(() => {
     const handleUserArticles = async () => {
       try {
+        setLoadingArticles(true);
         const data = await getUserArticles(username, articlesPage);
 
         setError(false);
 
         setUserArticles(data.articles);
         setTotalArticles(data.total_count);
+        setLoadingArticles(false);
       } catch (error) {
         setError(true);
       }
@@ -58,11 +63,13 @@ export const UserPage = () => {
   useEffect(() => {
     const handleUserComments = async () => {
       try {
+        setLoadingComments(true);
         const data = await getUserComments(username, commentsPage);
 
         setError(false);
         setUserComments(data.comments);
         setTotalComments(data.total_count);
+        setLoadingComments(false);
 
       } catch (error) {
         setError(true);
@@ -76,9 +83,19 @@ export const UserPage = () => {
     <div>
       {error ? <NotFoundPage/> :
         <div>
-          <h1>{user.username}</h1>
-          <p>Name: {user.name}</p>
-          <img src={user.avatar_url} alt={user.username} width={"100px"}/>
+          {loadingUser ? <div className="d-flex justify-content-center align-items-center">
+              <Card className="text-center p-4 buttons">
+                <Card.Body>
+                  <Spinner animation="border" variant="primary" className="mb-3"/>
+                  <Card.Title>Loading user info...</Card.Title>
+                </Card.Body>
+              </Card>
+            </div> :
+            <div>
+              <h1>{user.username}</h1>
+              <p>Name: {user.name}</p>
+              <img src={user.avatar_url} alt={user.username} width={"100px"}/>
+            </div>}
           <h5 className={"text-bg-dark"}>Hover or press on comment or article text for more info</h5>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={{flex: 1, marginRight: '10px'}}>
@@ -108,7 +125,14 @@ export const UserPage = () => {
                 </OverlayTrigger>
 
               ))}
-              {loading ? <p>Loading...</p> : null}
+              {loadingArticles ? <div className="d-flex justify-content-center align-items-center">
+                <Card className="text-center p-4">
+                  <Card.Body>
+                    <Spinner animation="border" variant="primary" className="mb-3"/>
+                    <Card.Title>Loading articles...</Card.Title>
+                  </Card.Body>
+                </Card>
+              </div> : null}
               {totalArticles > 5 && (
                 <Paginate page={articlesPage} setPage={setArticlesPage} totalItems={totalArticles}/>
               )}
@@ -116,6 +140,14 @@ export const UserPage = () => {
 
             <div style={{flex: 1, marginLeft: '10px'}}>
               <h3>Comments</h3>
+              {loadingComments ? <div className="d-flex justify-content-center align-items-center">
+                <Card className="text-center p-4">
+                  <Card.Body>
+                    <Spinner animation="border" variant="primary" className="mb-3"/>
+                    <Card.Title>Loading comments...</Card.Title>
+                  </Card.Body>
+                </Card>
+              </div> : null}
               {userComments.map((comment, index) => (
                 <OverlayTrigger
                   key={index}
