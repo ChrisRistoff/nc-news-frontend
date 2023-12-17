@@ -164,7 +164,7 @@ export const Article = () => {
 
   return (
     <div>
-      {isLoading ? <h1>Loading...</h1> :
+      {isLoading ? <h1>Loading article...</h1> :
         article.title ?
           <Card className="mb-3 article" style={{width: "100%"}}>
             <Card.Body>
@@ -235,7 +235,7 @@ export const Article = () => {
             </Card.Body>
           </Card>
           : <NotFoundPage/>}
-      {isLoading || !comments ? <h1>Loading...</h1> :
+      {isLoading || !comments ? <h1>Loading comments...</h1> :
         <Comments comments={comments} setComments={setComments} totalComments={totalComments}
                   setTotalComments={setTotalComments}/>}
       {totalComments > 10 && <Paginate page={page} setPage={setPage} totalItems={totalComments}/>}

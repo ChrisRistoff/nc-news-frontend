@@ -21,10 +21,6 @@ export const Topics = () => {
       }
     };
 
-    if (isLoading) {
-      <h1>Loading...</h1>;
-    }
-
     fetchTopics();
   }, []);
 
@@ -65,26 +61,31 @@ export const Topics = () => {
         : <ListArticles query={`search=${search}`}/>}
 
       <h1>Topics</h1>
-      <Row xs={1} md={2} lg={3} className="g-4">
+      {isLoading ? <div>
+          <h1>Just a Moment...</h1>
+          <p>The server is waking up! This might take about a minute. I appreciate your patience.</p>
+        </div> :
+        <Row xs={1} md={2} lg={3} className="g-4">
 
-        {topics.map((topic, index) => {
-          return (
-            <Col key={topic.slug || index}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>{topic.slug}</Card.Title>
-                  <Card.Footer>{topic.description}</Card.Footer>
-                </Card.Body>
-                <Card.Body>
-                  <Link to={`/topics/${topic.slug}`} className="btn btn-outline-dark">
-                    Open Topic
-                  </Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          );
-        })}
-      </Row>
+          {topics.map((topic, index) => {
+            return (
+              <Col key={topic.slug || index}>
+                <Card>
+                  <Card.Body>
+                    <Card.Title>{topic.slug}</Card.Title>
+                    <Card.Footer>{topic.description}</Card.Footer>
+                  </Card.Body>
+                  <Card.Body>
+                    <Link to={`/topics/${topic.slug}`} className="btn btn-outline-dark">
+                      Open Topic
+                    </Link>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      }
     </div>
   );
 }
