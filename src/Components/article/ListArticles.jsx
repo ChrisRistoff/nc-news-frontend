@@ -130,9 +130,13 @@ export const ListArticles = ({query}) => {
                   <Card>
                     <Card.Img onClick={(e) => clickImage(e, article.article_id)} variant="top"
                               src={article.article_img_url}
-                              style={{width: '100%', height: '200px', objectFit: 'cover'}}/>
+                              style={{width: '100%', height: '200px', objectFit: 'cover', cursor: "pointer"}}/>
                     <Card.Body>
-                      <Card.Title><h2>{article.title}</h2></Card.Title>
+                      <Card.Title>
+                        <h2 style={{cursor: "pointer"}} onClick={(e) => clickImage(e, article.article_id)}>
+                          {article.title}
+                        </h2>
+                      </Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
                       <ListGroup.Item> <User username={article.author}/> </ListGroup.Item>
@@ -141,11 +145,6 @@ export const ListArticles = ({query}) => {
                       <ListGroup.Item><b>Votes:</b> {article.votes}</ListGroup.Item>
                       <ListGroup.Item><b>Comments:</b> {article.comment_count}</ListGroup.Item>
                     </ListGroup>
-                    <Card.Body>
-                      <Link to={`/articles/${article.article_id}`} className="btn btn-outline-dark">
-                        Open Article
-                      </Link>
-                    </Card.Body>
                   </Card>
                 </Col>
               );

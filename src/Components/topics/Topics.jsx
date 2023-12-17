@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {Button, Card, Col, Form, Row, Spinner} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {getTopics} from "../../utils/getTopics.js";
 import {ListArticles} from "../article/ListArticles.jsx";
 
@@ -9,6 +9,8 @@ export const Topics = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showArticles, setShowArticles] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -32,6 +34,11 @@ export const Topics = () => {
     } else {
       setShowArticles(false)
     }
+  }
+
+  const handleTopicClick = (event, topic) => {
+    event.preventDefault();
+    navigate(`/topics/${topic}`)
   }
 
   return (
@@ -78,16 +85,11 @@ export const Topics = () => {
           {topics.map((topic, index) => {
             return (
               <Col key={topic.slug || index}>
-                <Card>
+                <Card onClick={(e) => handleTopicClick(e, topic.slug)} style={{cursor: "pointer"}}>
                   <Card.Body>
                     <Card.Title>{topic.slug}</Card.Title>
                     <Card.Footer>{topic.description}</Card.Footer>
                     <Card.Footer><b>Articles:</b> {topic.article_count}</Card.Footer>
-                  </Card.Body>
-                  <Card.Body>
-                    <Link to={`/topics/${topic.slug}`} className="btn btn-outline-dark">
-                      Open Topic
-                    </Link>
                   </Card.Body>
                 </Card>
               </Col>

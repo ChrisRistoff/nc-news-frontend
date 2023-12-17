@@ -197,7 +197,7 @@ export const Article = () => {
                 {formatDate(article.created_at)}
               </ListGroup.Item>
               <ListGroup.Item>
-                Votes: {article.votes}
+                <b>Votes:</b> {article.votes}
                 {userUpVotes.has(article.article_id) ?
                   <Button variant="dark buttons" onClick={handleIncrementVote}
                           onMouseLeave={() => setVoteError("")}>
@@ -217,24 +217,18 @@ export const Article = () => {
                 {voteError && <p className="error">{voteError}</p>}
               </ListGroup.Item>
             </ListGroup>
-            {localStorage.getItem("username") ?
+            {localStorage.getItem("username") &&
               <Link to={`/${article.topic}/articles/new`} className={"btn btn-outline-dark buttons"}>Create new article
-                in this topic</Link> :
-              <div>
-                <Link to={`/login`} className={"btn btn-outline-dark buttons"}>Log in</Link>
-                or
-                <Link to={`/signup`} className={"btn btn-outline-dark buttons"}>Register</Link>
-                To create a new article in this topic
-              </div>}
+                in this topic</Link>}
             <Card.Body>
-              Comments ({article.comment_count})
+              <b>Comments</b> ({article.comment_count})
               {localStorage.getItem("username") ?
                 <Button variant="outline-dark buttons" onClick={handleExpand}>Add Comment</Button> :
                 <div>
-                  <Link to="/login" className="btn btn-outline-secondary buttons">Login</Link>
+                  <Link to="/login" className="btn btn-outline-dark buttons">Login</Link>
                   or
-                  <Link to="/signup" className="btn btn-outline-secondary buttons">Register</Link>
-                  To submit a comment
+                  <Link to="/signup" className="btn btn-outline-dark buttons">Register</Link>
+                  <p><b>To Submit a Comment or Create a New Article in this topic</b></p>
                 </div>}
 
               {expandNewComment &&
