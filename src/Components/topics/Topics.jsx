@@ -82,6 +82,7 @@ export const Topics = () => {
                   <Card.Body>
                     <Card.Title>{topic.slug}</Card.Title>
                     <Card.Footer>{topic.description}</Card.Footer>
+                    <Card.Footer><b>Articles:</b> {topic.article_count}</Card.Footer>
                   </Card.Body>
                   <Card.Body>
                     <Link to={`/topics/${topic.slug}`} className="btn btn-outline-dark">

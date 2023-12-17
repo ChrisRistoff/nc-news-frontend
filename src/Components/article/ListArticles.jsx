@@ -132,14 +132,14 @@ export const ListArticles = ({query}) => {
                               src={article.article_img_url}
                               style={{width: '100%', height: '200px', objectFit: 'cover'}}/>
                     <Card.Body>
-                      <Card.Title>{article.title}</Card.Title>
+                      <Card.Title><h2>{article.title}</h2></Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroup.Item>Author: <User username={article.author}/> </ListGroup.Item>
-                      <ListGroup.Item>Topic: {article.topic}</ListGroup.Item>
-                      <ListGroup.Item>Created: {formattedDate}</ListGroup.Item>
-                      <ListGroup.Item>Votes: {article.votes}</ListGroup.Item>
-                      <ListGroup.Item>Comments: {article.comment_count}</ListGroup.Item>
+                      <ListGroup.Item> <User username={article.author}/> </ListGroup.Item>
+                      <ListGroup.Item><b>Topic:</b> {article.topic}</ListGroup.Item>
+                      <ListGroup.Item>{formattedDate}</ListGroup.Item>
+                      <ListGroup.Item><b>Votes:</b> {article.votes}</ListGroup.Item>
+                      <ListGroup.Item><b>Comments:</b> {article.comment_count}</ListGroup.Item>
                     </ListGroup>
                     <Card.Body>
                       <Link to={`/articles/${article.article_id}`} className="btn btn-outline-dark">

@@ -141,7 +141,7 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>{formattedDate}</ListGroup.Item>
                   <ListGroup.Item>
-                    Votes: {comment.votes}
+                    <b>Votes:</b> {comment.votes}
                     {userUpVotes.has(comment.comment_id) ?
                       <Button
                         variant="dark buttons"

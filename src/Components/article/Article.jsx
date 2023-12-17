@@ -191,10 +191,10 @@ export const Article = () => {
 
             </Card.Body>
             <ListGroup className="list-group-flush">
-              <ListGroup.Item>Author: <User username={article.author}/> </ListGroup.Item>
-              <ListGroup.Item>Topic: <Topic slug={article.topic}/> </ListGroup.Item>
+              <ListGroup.Item> <User username={article.author}/> </ListGroup.Item>
+              <ListGroup.Item> <Topic slug={article.topic}/> </ListGroup.Item>
               <ListGroup.Item>
-                Created: {formatDate(article.created_at)}
+                {formatDate(article.created_at)}
               </ListGroup.Item>
               <ListGroup.Item>
                 Votes: {article.votes}
@@ -243,7 +243,7 @@ export const Article = () => {
             </Card.Body>
           </Card>
           : <NotFoundPage/>}
-      {isLoading || !comments ? <div className="d-flex justify-content-center align-items-center buttons">
+      {loadingComments || !comments ? <div className="d-flex justify-content-center align-items-center buttons">
           <Card className="text-center p-4">
             <Card.Body>
               <Spinner animation="border" variant="primary" className="mb-3"/>
