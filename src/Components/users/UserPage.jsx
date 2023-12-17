@@ -118,9 +118,11 @@ export const UserPage = () => {
                   }
                 >
                   <div>
-                    <p>{article.title}</p>
-                    <Link className={"btn btn-outline-dark"} to={`/articles/${article.article_id}`}>View
-                      Article</Link>
+                    <Card style={{cursor: "default", padding: "15px", margin: "10px"}}>{article.title}
+                      <Link className={"btn btn-outline-dark buttons"} to={`/articles/${article.article_id}`}>View
+                        Article</Link>
+                    </Card>
+
                   </div>
                 </OverlayTrigger>
 
@@ -163,9 +165,10 @@ export const UserPage = () => {
                   }
                 >
                   <div>
-                    <p>Comment: {comment.body.substring(0, 40)}...</p>
-                    <Link className={"btn btn-outline-dark"} to={`/articles/${comment.article_id}`}>View
-                      Article</Link>
+                    <Card style={{cursor: "default", padding: "15px", margin: "10px"}}>{comment.body.substring(0, 60)}...
+                      <Link className={"btn btn-outline-dark buttons"} to={`/articles/${comment.article_id}`}>View
+                        Article</Link>
+                    </Card>
                   </div>
                 </OverlayTrigger>
               ))}

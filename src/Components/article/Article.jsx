@@ -174,20 +174,20 @@ export const Article = () => {
         </div>
         :
         article.title ?
-          <Card className="mb-3 article" style={{width: "100%"}}>
+          <Card style={{width: "100%"}}>
             <Card.Body>
               <Card.Title>
                 <h1>{article.title}</h1>
               </Card.Title>
               {!editToggle && localStorage.getItem("username") === article.author ?
                 <div>
-                  <Card.Text>{article.body}</Card.Text>
+                  <Card.Text className={"text-start"}>{article.body}</Card.Text>
                   <Button className={"buttons"} variant={"outline-dark"} onClick={handleEditToggle}>Edit
                     article</Button>
                   <DeleteArticle article_id={article.article_id}/>
                 </div>
                 : editToggle ? <EditArticleBody article={article} setArticle={setArticle} setToggle={setEditToggle}/>
-                  : <Card.Text>{article.body}</Card.Text>}
+                  : <Card.Text className={"text-start"}>{article.body}</Card.Text>}
 
             </Card.Body>
             <ListGroup className="list-group-flush">
@@ -245,9 +245,16 @@ export const Article = () => {
             </Card.Body>
           </Card>
         </div>
-        :
-        <Comments comments={comments} setComments={setComments} totalComments={totalComments}
-                  setTotalComments={setTotalComments}/>}
+        : !comments.length ? <div className="d-flex justify-content-center align-items-center buttons">
+            <Card className="text-center p-4">
+              <Card.Body>
+                <Card.Title>There are no comments yet. Be the first to comment!</Card.Title>
+              </Card.Body>
+            </Card>
+          </div>
+          :
+          <Comments comments={comments} setComments={setComments} totalComments={totalComments}
+                    setTotalComments={setTotalComments}/>}
       {totalComments > 10 && <Paginate page={page} setPage={setPage} totalItems={totalComments}/>}
     </div>
   );

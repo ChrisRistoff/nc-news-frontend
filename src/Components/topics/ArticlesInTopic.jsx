@@ -14,11 +14,16 @@ export const ArticlesInTopic = () => {
 
   return (
     <div>
+      <h1><b>{topic}</b></h1>
       {showUsers ?
-        <Button onClick={handleClick} variant={"outline-dark buttons"}>Click the button to hide Users active in
-          this topic</Button> :
-        <Button onClick={handleClick} variant={"outline-dark buttons"}>Click the button to show Users active in
-          this topic</Button>}
+        <div>
+          <b>Active users in {topic}</b>
+          <Button onClick={handleClick} variant={"outline-dark buttons"}>Hide</Button>
+        </div> :
+        <div>
+          <b>Active users in {topic}</b>
+          <Button onClick={handleClick} variant={"outline-dark buttons"}>Show</Button>
+        </div>}
       {showUsers && <ActiveUsersInAtopic topic={topic}/>}
       <br></br>
       {localStorage.getItem("username") ?

@@ -120,7 +120,6 @@ export const ListArticles = ({query}) => {
 
             <Button variant="outline-dark buttons" type="submit">Click To Search</Button>
           </Form>
-          <h1>Articles</h1>
 
           <Row xs={1} md={2} lg={3} className="g-4">
             {articles.map((article, index) => {
@@ -140,10 +139,15 @@ export const ListArticles = ({query}) => {
                     </Card.Body>
                     <ListGroup className="list-group-flush">
                       <ListGroup.Item> <User username={article.author}/> </ListGroup.Item>
-                      <ListGroup.Item><b>Topic:</b> {article.topic}</ListGroup.Item>
-                      <ListGroup.Item>{formattedDate}</ListGroup.Item>
-                      <ListGroup.Item><b>Votes:</b> {article.votes}</ListGroup.Item>
-                      <ListGroup.Item><b>Comments:</b> {article.comment_count}</ListGroup.Item>
+                      <div
+                        onClick={(e) => clickImage(e, article.article_id)}
+                        style={{cursor: "pointer"}}
+                      >
+                        <ListGroup.Item><b>Topic:</b> {article.topic}</ListGroup.Item>
+                        <ListGroup.Item>{formattedDate}</ListGroup.Item>
+                        <ListGroup.Item><b>Votes:</b> {article.votes}</ListGroup.Item>
+                        <ListGroup.Item><b>Comments:</b> {article.comment_count}</ListGroup.Item>
+                      </div>
                     </ListGroup>
                   </Card>
                 </Col>

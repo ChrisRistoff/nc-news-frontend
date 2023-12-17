@@ -115,19 +115,19 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
   }
 
   return (
-    <div className="container">
+    <div>
       <h1 className="text-center">Comments</h1>
       <div className="row justify-content-center">
         {comments.map((comment, index) => {
           const formattedDate = formatDate(comment.created_at);
           return (
-            <div key={comment.id || index} className="col-12 col-md-11">
+            <div key={comment.id || index} className="col-12">
               <Card className="mb-3">
                 <Card.Body>
-                  <Card.Title><User username={comment.author}/> </Card.Title>
+                  <Card.Title className={"text-start"}><User username={comment.author}/> </Card.Title>
                   {!editToggle && localStorage.getItem("username") === comment.author ?
                     <div>
-                      <Card.Text>{comment.body}</Card.Text>
+                      <Card.Text className={"text-start"}>{comment.body}</Card.Text>
                       <Button className={"buttons"} variant={"outline-dark"} onClick={() => handleEditToggle()}>Edit
                         comment</Button>
                       <DeleteComment comment_id={comment.comment_id} comments={comments} setComments={setComments}
@@ -136,7 +136,7 @@ export const Comments = ({comments, setComments, totalComments, setTotalComments
                     : editToggle ?
                       <EditCommentBody comment_id={comment.comment_id} comments={comments} setComments={setComments}
                                        setToggle={setEditToggle}/>
-                      : <Card.Text>{comment.body}</Card.Text>}
+                      : <Card.Text className={"text-start"}>{comment.body}</Card.Text>}
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>{formattedDate}</ListGroup.Item>
