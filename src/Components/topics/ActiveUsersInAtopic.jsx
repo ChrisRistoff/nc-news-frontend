@@ -42,13 +42,13 @@ export const ActiveUsersInAtopic = ({topic}) => {
         </Card>
       </div>}
       {error && <p className="text-danger">There was an issue displaying the users, please try again</p>}
-      <Row xs={1} md={2} lg={3} className="g-4">
+      <Row xs={2} md={4} lg={8} className="g-4">
         {users.map((user, index) => {
           return (
             <Col key={user.username || index}>
               <Card
                 onClick={(e) => handleUserClick(e, user.username)}
-                style={{cursor: "pointer"}}
+                style={{cursor: "pointer", maxWidth: "250px", margin: "auto"}}
               >
                 <Card.Body>
                   <Card.Title>{user.username}</Card.Title>
