@@ -25,7 +25,7 @@ jobs:
 
       - name: Copy deployment script
         run: |
-          scp -o StrictHostKeyChecking=no scripts/deploy_script.sh ubuntu@ec2-35-179-90-244.eu-west-2.compute.amazonaws.com:~
+          scp -o StrictHostKeyChecking=no scripts/deploy_script-fe.sh ubuntu@ec2-35-179-90-244.eu-west-2.compute.amazonaws.com:~
 
       - name: Run deployment script
         run: |
