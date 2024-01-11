@@ -30,6 +30,6 @@ jobs:
       - name: Run deployment script
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-35-179-90-244.eu-west-2.compute.amazonaws.com "\
-          ls -l ~/deploy_script-fe.sh && \
-          chmod +x ~/deploy_script-fe.sh && \
-          bash ~/deploy_script-fe.sh"
+          ls -l ~/deploy_script_fe.sh && \
+          chmod +x ~/deploy_script_fe.sh && \
+          bash ~/deploy_script_fe.sh"
