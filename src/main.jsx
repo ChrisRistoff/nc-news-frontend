@@ -6,7 +6,7 @@ import {LoggedInProvider} from "./contexts/loggedInContext.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <LoggedInProvider>
-    <BrowserRouter>
+    <BrowserRouter basename={"/news"}>
       <App/>
     </BrowserRouter>
   </LoggedInProvider>
