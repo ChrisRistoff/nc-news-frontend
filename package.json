@@ -2,7 +2,6 @@
   "name": "nc-news-frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "/news",
   "type": "module",
   "scripts": {
     "dev": "vite",
