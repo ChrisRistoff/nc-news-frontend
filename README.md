@@ -3,7 +3,7 @@
 Forum on which users are able to login, register, browse articles, post or delete comments, and vote on other users'
 content.
 
-#### [Deployed link](https://krasen-news.netlify.app/)
+#### [Deployed link](https://krasen.site/news)
 
 The site is hosted on Netlify, and the backend is hosted on Render and AWS. Frontend requests are made to the backend on
 Render, which then makes requests to the database.
@@ -15,7 +15,7 @@ of that can be found below.
 
 #### [GitHub link](https://github.com/krasenHristov/nc-news)
 
-#### [Documentation link](http://ec2-35-179-90-244.eu-west-2.compute.amazonaws.com/api/docs/)
+#### [Documentation link](https://krasen.site/api/docs/)
 
 # Local Setup Instructions
 
